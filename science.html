@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>اختبار علوم - الصف السادس الابتدائي - الفصل الدراسي الثاني</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap');
+    :root {
+      --primary:#0a6b8a;--primary-light:#1aacda;--accent:#f39c12;
+      --bg:#edf5f9;--card-bg:#ffffff;--text:#0d2b38;--text-muted:#4a7a90;
+      --correct:#1a7a3c;--wrong:#c0392b;--correct-bg:#d4edda;--wrong-bg:#fde8e6;
+      --border:#b5d8ea;--shadow:0 4px 20px rgba(10,107,138,0.10);--radius:16px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:60px;}
+    .site-header{background:linear-gradient(135deg,#05445e 0%,#0a6b8a 50%,#1aacda 100%);color:#fff;padding:28px 20px 22px;text-align:center;position:relative;overflow:hidden;}
+    .site-header::before{content:'';position:absolute;top:-60px;left:-60px;width:200px;height:200px;background:rgba(255,255,255,0.07);border-radius:50%;}
+    .site-header::after{content:'';position:absolute;bottom:-80px;right:-40px;width:260px;height:260px;background:rgba(255,255,255,0.05);border-radius:50%;}
+    .header-icon{font-size:44px;margin-bottom:8px;display:block;}
+    .site-header h1{font-size:clamp(18px,4vw,26px);font-weight:900;letter-spacing:0.5px;line-height:1.4;}
+    .site-header .subtitle{margin-top:6px;font-size:13px;opacity:0.82;font-weight:500;}
+    .version-badge{display:inline-block;background:rgba(255,255,255,0.22);border:1.5px solid rgba(255,255,255,0.45);padding:4px 16px;border-radius:50px;font-size:13px;font-weight:800;margin-top:10px;letter-spacing:1px;}
+    .container{max-width:820px;margin:0 auto;padding:0 16px;}
+    .student-box{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 28px;margin:24px 0 0;border:2px solid var(--border);}
+    .student-box label{display:block;font-weight:700;font-size:15px;margin-bottom:8px;color:var(--primary);}
+    .student-box input{width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:10px;font-family:'Tajawal',sans-serif;font-size:15px;color:var(--text);background:var(--bg);outline:none;transition:border-color 0.2s;}
+    .student-box input:focus{border-color:var(--primary-light);background:#fff;}
+    .instructions{background:linear-gradient(135deg,#e4f4fb,#cce8f4);border-radius:var(--radius);padding:20px 24px;margin:18px 0 0;border-right:5px solid var(--primary);}
+    .instructions h3{font-size:15px;font-weight:800;color:var(--primary);margin-bottom:10px;}
+    .instructions ul{list-style:none;padding:0;}
+    .instructions ul li{font-size:13.5px;color:var(--text);padding:4px 0;padding-right:20px;position:relative;font-weight:500;}
+    .instructions ul li::before{content:'✓';position:absolute;right:0;color:var(--primary-light);font-weight:900;}
+    .progress-wrap{background:var(--card-bg);border-radius:50px;box-shadow:var(--shadow);padding:14px 20px;margin:18px 0 0;display:flex;align-items:center;gap:14px;border:2px solid var(--border);}
+    .progress-label{font-size:13px;font-weight:700;color:var(--primary);white-space:nowrap;min-width:130px;}
+    .progress-bar-bg{flex:1;background:#c9e6f2;border-radius:50px;height:14px;overflow:hidden;}
+    .progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--primary),var(--primary-light));border-radius:50px;transition:width 0.4s ease;}
+    .progress-count{font-size:14px;font-weight:800;color:var(--primary);min-width:50px;text-align:center;}
+    .section-divider{display:flex;align-items:center;gap:10px;margin:30px 0 14px;}
+    .section-divider .line{flex:1;height:2px;background:var(--border);border-radius:2px;}
+    .difficulty-tag{padding:6px 18px;border-radius:50px;font-size:13px;font-weight:700;white-space:nowrap;}
+    .tag-easy{background:#d4edda;color:#155724;}
+    .tag-medium{background:#fff3cd;color:#856404;}
+    .tag-hard{background:#fde8e6;color:#7b1d1d;}
+    .question-card{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 24px 20px;margin-bottom:14px;border:2px solid transparent;transition:border-color 0.25s,box-shadow 0.25s;position:relative;overflow:hidden;}
+    .question-card::before{content:'';position:absolute;top:0;right:0;width:5px;height:100%;background:var(--primary-light);border-radius:0 var(--radius) var(--radius) 0;}
+    .question-card:hover{border-color:var(--border);box-shadow:0 6px 24px rgba(10,107,138,0.14);}
+    .question-card.answered{border-color:#8ecfe3;}
+    .question-card.correct-card{border-color:var(--correct);background:#f4fbf7;}
+    .question-card.wrong-card{border-color:var(--wrong);background:#fff7f6;}
+    .question-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;}
+    .q-number{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;font-size:13px;font-weight:800;padding:5px 11px;border-radius:50px;white-space:nowrap;flex-shrink:0;margin-top:2px;}
+    .q-text{font-size:15px;font-weight:700;line-height:1.6;flex:1;}
+    .options-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+    .option-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:10px;border:2px solid #d6edf5;cursor:pointer;transition:all 0.18s;font-size:14px;font-weight:500;background:#f8fdff;}
+    .option-item:hover:not(.disabled){border-color:var(--primary-light);background:#e4f4fb;}
+    .option-item input[type="radio"]{accent-color:var(--primary);width:17px;height:17px;flex-shrink:0;cursor:pointer;}
+    .option-item.selected-correct{background:var(--correct-bg);border-color:var(--correct);color:#0d4f2b;font-weight:700;}
+    .option-item.selected-wrong{background:var(--wrong-bg);border-color:var(--wrong);color:#7b1d1d;font-weight:700;}
+    .option-item.show-correct{background:var(--correct-bg);border-color:var(--correct);color:#0d4f2b;font-weight:700;}
+    .option-item.disabled{cursor:not-allowed;pointer-events:none;}
+    .correct-reveal{display:none;margin-top:12px;padding:10px 14px;background:#d4edda;border-radius:10px;border-right:4px solid var(--correct);font-size:13px;font-weight:700;color:#0d4f2b;}
+    .correct-reveal.visible{display:block;}
+    .result-box{display:none;background:var(--card-bg);border-radius:20px;box-shadow:0 8px 40px rgba(10,107,138,0.18);padding:32px 28px 28px;margin:26px 0 0;border:3px solid var(--primary-light);text-align:center;}
+    .result-box.visible{display:block;animation:popIn 0.5s cubic-bezier(0.22,1.5,0.5,1) both;}
+    @keyframes popIn{from{transform:scale(0.85);opacity:0;}to{transform:scale(1);opacity:1;}}
+    .result-trophy{font-size:52px;margin-bottom:10px;display:block;}
+    .result-name{font-size:17px;font-weight:700;color:var(--text-muted);margin-bottom:4px;}
+    .result-score{font-size:46px;font-weight:900;color:var(--primary);line-height:1.1;}
+    .result-of{font-size:18px;color:var(--text-muted);font-weight:600;margin-bottom:10px;}
+    .result-percent{display:inline-block;font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;padding:6px 22px;border-radius:50px;margin-bottom:14px;}
+    .result-grade{display:inline-block;font-size:20px;font-weight:900;padding:8px 26px;border-radius:50px;margin-bottom:14px;}
+    .grade-excellent{background:#d4edda;color:#0d4f2b;}
+    .grade-verygood{background:#cce5ff;color:#003f7f;}
+    .grade-good{background:#fff3cd;color:#856404;}
+    .grade-pass{background:#ffe5d0;color:#7c3d00;}
+    .grade-fail{background:#fde8e6;color:#7b1d1d;}
+    .result-msg{font-size:15px;color:var(--text-muted);font-weight:600;margin-top:8px;line-height:1.6;}
+    .report-box{display:none;background:var(--card-bg);border-radius:20px;box-shadow:var(--shadow);padding:24px 28px;margin:16px 0 0;border:2px solid var(--border);}
+    .report-box.visible{display:block;animation:popIn 0.45s cubic-bezier(0.22,1.5,0.5,1) both;}
+    .report-title{font-size:17px;font-weight:800;color:var(--primary);margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px;}
+    .report-subtitle{font-size:13px;font-weight:800;margin:14px 0 8px;display:flex;align-items:center;gap:6px;}
+    .report-subtitle.bad{color:#c0392b;}
+    .report-subtitle.good{color:#1a7a3c;}
+    .report-list{display:flex;flex-direction:column;gap:8px;}
+    .report-item{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-radius:12px;gap:10px;}
+    .report-item.needs-review{background:#fff0ee;border:1.5px solid #e74c3c;}
+    .report-item.mastered{background:#f0fff5;border:1.5px solid #2e9e5e;}
+    .report-item-name{font-size:13.5px;font-weight:700;flex:1;}
+    .report-item-badge{font-size:12px;font-weight:800;padding:4px 12px;border-radius:50px;white-space:nowrap;flex-shrink:0;}
+    .badge-wrong{background:#fde8e6;color:#c0392b;}
+    .badge-right{background:#d4edda;color:#1a7a3c;}
+    .report-tip{background:#fffbe6;border:1.5px solid #f5a623;border-radius:12px;padding:12px 16px;margin-top:14px;font-size:13px;font-weight:600;color:#7a5000;line-height:1.6;}
+    .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:26px 0 0;}
+    .btn{padding:13px 30px;border-radius:50px;border:none;font-family:'Tajawal',sans-serif;font-size:15px;font-weight:800;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:7px;}
+    .btn:active{transform:scale(0.97);}
+    .btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;box-shadow:0 4px 14px rgba(10,107,138,0.35);}
+    .btn-primary:hover{box-shadow:0 6px 20px rgba(10,107,138,0.45);transform:translateY(-1px);}
+    .btn-reset{background:linear-gradient(135deg,#e84393,#c0247a);color:#fff;box-shadow:0 4px 14px rgba(192,36,122,0.30);}
+    .btn-reset:hover{box-shadow:0 6px 20px rgba(192,36,122,0.40);transform:translateY(-1px);}
+    .alert-box{display:none;background:#fff3cd;border:2px solid #ffc107;border-radius:12px;padding:14px 18px;margin-top:16px;font-size:14px;font-weight:700;color:#856404;text-align:center;}
+    .alert-box.visible{display:block;animation:shake 0.4s;}
+    @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+    @media(max-width:500px){.progress-wrap{flex-wrap:wrap;gap:8px;}.progress-label{min-width:unset;}.result-score{font-size:38px;}.question-card{padding:16px 14px;}.btn{padding:11px 22px;font-size:14px;}}
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <span class="header-icon">🔬</span>
+  <h1>اختبار علوم<br>الصف السادس الابتدائي — الفصل الدراسي الثاني</h1>
+  <p class="subtitle">المنهج السعودي &nbsp;|&nbsp; 30 سؤالاً &nbsp;|&nbsp; اختيار من متعدد</p>
+  <div class="version-badge" id="versionBadge"></div>
+</header>
+<div class="container">
+  <div class="student-box">
+    <label for="studentName">🎒 اسم الطالب / الطالبة</label>
+    <input type="text" id="studentName" placeholder="اكتب اسمك هنا..." maxlength="60" />
+  </div>
+  <div class="instructions">
+    <h3>📋 تعليمات الاختبار</h3>
+    <ul>
+      <li>اقرأ كل سؤال بعناية قبل الإجابة.</li>
+      <li>اختر إجابة واحدة فقط لكل سؤال.</li>
+      <li>أجب على جميع الأسئلة قبل الضغط على زر "عرض النتيجة".</li>
+      <li>يمكنك تغيير إجابتك في أي وقت قبل عرض النتيجة.</li>
+      <li>بعد عرض النتيجة، اضغط "إعادة الاختبار" للبدء من جديد.</li>
+    </ul>
+  </div>
+  <div class="progress-wrap">
+    <span class="progress-label">📊 تقدم الإجابات:</span>
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+    <span class="progress-count" id="progressCount">0 / 30</span>
+  </div>
+  <div class="result-box" id="resultBox">
+    <span class="result-trophy" id="resultTrophy">🏆</span>
+    <p class="result-name" id="resultName"></p>
+    <div class="result-score" id="resultScore"></div>
+    <div class="result-of">من أصل 30 سؤالاً</div>
+    <div class="result-percent" id="resultPercent"></div>
+    <div class="result-grade" id="resultGrade"></div>
+    <p class="result-msg" id="resultMsg"></p>
+  </div>
+  <div class="report-box" id="reportBox"></div>
+  <div id="questionsContainer"></div>
+  <div class="alert-box" id="alertBox">⚠️ لم تجب على بعض الأسئلة بعد! يُرجى الإجابة على جميع الأسئلة أولاً.</div>
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="showResult()">✅ عرض النتيجة</button>
+    <button class="btn btn-reset" onclick="resetTest()">🔄 إعادة الاختبار</button>
+  </div>
+</div>
+<script>
+const topicNames = {
+  'matter'    : 'المادة وخصائصها',
+  'mixtures'  : 'المخاليط والمحاليل',
+  'energy'    : 'الطاقة وأشكالها',
+  'forces'    : 'القوى والحركة',
+  'light'     : 'الضوء والبصريات',
+  'sound'     : 'الصوت',
+  'electricity': 'الكهرباء',
+  'earth'     : 'الأرض والفضاء',
+  'ecosystem' : 'البيئة والنظام البيئي',
+  'humanbody' : 'جسم الإنسان'
+};
+
+const versions = [
+
+  /* ══════════════ النسخة أ ══════════════ */
+  [
+    /* سهل */
+    {text:'المادة الصلبة تحتفظ بـ؟',options:['شكلها فقط','حجمها فقط','شكلها وحجمها','لا شيء منهما'],correctIndex:2,difficulty:'easy',topic:'matter'},
+    {text:'يصنع النبات الأخضر غذاءه عن طريق عملية؟',options:['التنفس','التكاثر','البناء الضوئي','التغذية'],correctIndex:2,difficulty:'easy',topic:'ecosystem'},
+    {text:'المادة التي تسمح بمرور التيار الكهربائي تُسمى؟',options:['عازل','موصل','مغناطيس','محلول'],correctIndex:1,difficulty:'easy',topic:'electricity'},
+    {text:'كم عدد الكواكب في مجموعتنا الشمسية؟',options:['7','8','9','10'],correctIndex:1,difficulty:'easy',topic:'earth'},
+    {text:'الطاقة المخزنة في الطعام هي طاقة؟',options:['حرارية','ضوئية','كيميائية','كهربائية'],correctIndex:2,difficulty:'easy',topic:'energy'},
+    {text:'الصوت لا ينتقل في؟',options:['الهواء','الماء','الصلب','الفراغ'],correctIndex:3,difficulty:'easy',topic:'sound'},
+    {text:'وحدة قياس القوة في النظام الدولي؟',options:['كيلوغرام','نيوتن','جول','واط'],correctIndex:1,difficulty:'easy',topic:'forces'},
+    {text:'الضوء ينتقل في الفراغ على شكل؟',options:['موجات منحنية','دوائر','خطوط مستقيمة','موجات متعرجة'],correctIndex:2,difficulty:'easy',topic:'light'},
+    {text:'الجهاز المسؤول عن ضخ الدم في جسم الإنسان؟',options:['الهضمي','الدوري','التنفسي','العصبي'],correctIndex:1,difficulty:'easy',topic:'humanbody'},
+    {text:'أيُّ التالي مثال على مخلوط متجانس (محلول)؟',options:['رمل وماء','ماء وملح','زيت وماء','تراب وحجارة'],correctIndex:1,difficulty:'easy',topic:'mixtures'},
+    /* متوسط */
+    {text:'درجة غليان الماء النقي عند الضغط الجوي الطبيعي؟',options:['80°م','90°م','100°م','120°م'],correctIndex:2,difficulty:'medium',topic:'matter'},
+    {text:'لفصل الملح عن الماء نستخدم طريقة؟',options:['الترشيح','المغناطيس','التبخر','الطفو'],correctIndex:2,difficulty:'medium',topic:'mixtures'},
+    {text:'المصباح الكهربائي يحول الطاقة الكهربائية إلى؟',options:['ضوئية فقط','حرارية فقط','ضوئية وحرارية','صوتية'],correctIndex:2,difficulty:'medium',topic:'energy'},
+    {text:'إذا كانت القوى المؤثرة على جسم متوازنة، فإن الجسم؟',options:['يتسارع','يتباطأ ثم يتوقف','يبقى ساكناً أو يتحرك بسرعة ثابتة','يرتفع'],correctIndex:2,difficulty:'medium',topic:'forces'},
+    {text:'عند انعكاس الضوء عن مرآة مستوية، زاوية الانعكاس؟',options:['أكبر من زاوية السقوط','أصغر من زاوية السقوط','تساوي زاوية السقوط','لا علاقة لها بزاوية السقوط'],correctIndex:2,difficulty:'medium',topic:'light'},
+    {text:'الصوت العالي (الشديد) يختلف عن المنخفض في؟',options:['التردد','السعة','السرعة','الطول الموجي'],correctIndex:1,difficulty:'medium',topic:'sound'},
+    {text:'في الدائرة الكهربائية المتسلسلة، إذا احترق مصباح واحد؟',options:['بقيت المصابيح الأخرى مضاءة','انطفأت جميع المصابيح','ازداد سطوع المصابيح الأخرى','لا يتأثر شيء'],correctIndex:1,difficulty:'medium',topic:'electricity'},
+    {text:'الظاهرة المسؤولة عن تعاقب الليل والنهار هي؟',options:['دوران الأرض حول الشمس','دوران القمر حول الأرض','دوران الأرض حول محورها','حركة الشمس'],correctIndex:2,difficulty:'medium',topic:'earth'},
+    {text:'الكائن الذي يصنع غذاءه بنفسه في السلسلة الغذائية يُسمى؟',options:['مستهلكاً','محللاً','منتجاً','مفترساً'],correctIndex:2,difficulty:'medium',topic:'ecosystem'},
+    {text:'الجهاز الذي يتكون من الرئتين والقصبة الهوائية؟',options:['الهضمي','الدوري','التنفسي','العصبي'],correctIndex:2,difficulty:'medium',topic:'humanbody'},
+    {text:'عند تسخين الجليد يتحول إلى ماء، هذا التغير يُسمى؟',options:['التجمد','الذوبان','التبخر','التكثف'],correctIndex:1,difficulty:'medium',topic:'matter'},
+    {text:'قوة الاحتكاك تعمل على؟',options:['تسريع الحركة','مساعدة الحركة','مقاومة الحركة','توليد الحركة'],correctIndex:2,difficulty:'medium',topic:'forces'},
+    /* تفكير */
+    {text:'جسم كتلته 120 غراماً وحجمه 40 سم³. ما كثافته؟',options:['2 غ/سم³','3 غ/سم³','4 غ/سم³','80 غ/سم³'],correctIndex:1,difficulty:'hard',topic:'matter'},
+    {text:'محطة توليد الكهرباء بالرياح تحول الطاقة من؟',options:['كيميائية إلى كهربائية','حرارية إلى كهربائية','حركية إلى كهربائية','ضوئية إلى كهربائية'],correctIndex:2,difficulty:'hard',topic:'energy'},
+    {text:'شعاع ضوئي يسقط على مرآة مستوية بزاوية 30° من الخط العمودي. ما زاوية الانعكاس؟',options:['15°','30°','60°','90°'],correctIndex:1,difficulty:'hard',topic:'light'},
+    {text:'ثلاثة مصابيح موصولة على التوازي، احترق أحدها. ماذا يحدث للمصابيح الأخرى؟',options:['تنطفئ جميعاً','يزداد سطوعها','تبقى مضاءة','يقل سطوعها'],correctIndex:2,difficulty:'hard',topic:'electricity'},
+    {text:'سلسلة غذائية: عشب ← جراد ← ضفدع ← أفعى. إذا أُبيد الجراد كلياً، فماذا يحدث لعدد الضفادع؟',options:['يزداد','يبقى ثابتاً','يقل','لا يتأثر'],correctIndex:2,difficulty:'hard',topic:'ecosystem'},
+    {text:'كم يستغرق دوران الأرض الكامل حول الشمس تقريباً؟',options:['24 ساعة','28 يوماً','365 يوماً','100 يوم'],correctIndex:2,difficulty:'hard',topic:'earth'},
+    {text:'جسم كتلته 5 كغ تؤثر عليه قوة صافية 20 نيوتن. ما تسارعه؟ (ق = ك × ت)',options:['2 م/ث²','4 م/ث²','8 م/ث²','100 م/ث²'],correctIndex:1,difficulty:'hard',topic:'forces'},
+    {text:'عند ممارسة التمرين الشديد يزداد معدل التنفس لأن الجسم يحتاج إلى؟',options:['التخلص من الحرارة فقط','مزيد من الأكسجين لإنتاج الطاقة','تقليل ثاني أكسيد الكربون','تسريع الهضم'],correctIndex:1,difficulty:'hard',topic:'humanbody'}
+  ],
+
+  /* ══════════════ النسخة ب ══════════════ */
+  [
+    /* سهل */
+    {text:'أيُّ حالات المادة ليس لها شكل محدد ولا حجم محدد؟',options:['الصلبة','السائلة','الغازية','البلازما'],correctIndex:2,difficulty:'easy',topic:'matter'},
+    {text:'الحيوانات التي تتغذى على النباتات فقط تُسمى؟',options:['لاحمة','عاشبة','آكلة للجميع','طفيلية'],correctIndex:1,difficulty:'easy',topic:'ecosystem'},
+    {text:'المادة التي لا تسمح بمرور التيار الكهربائي تُسمى؟',options:['موصل','عازل','محلل','مغناطيس'],correctIndex:1,difficulty:'easy',topic:'electricity'},
+    {text:'أكبر كوكب في المجموعة الشمسية؟',options:['زحل','المشتري','أورانوس','نبتون'],correctIndex:1,difficulty:'easy',topic:'earth'},
+    {text:'الطاقة الشمسية التي نشعر بها نوعها؟',options:['كيميائية','ضوئية وحرارية','كهربائية','صوتية'],correctIndex:1,difficulty:'easy',topic:'energy'},
+    {text:'الوسط الذي ينتقل فيه الصوت بأسرع ما يمكن؟',options:['الهواء','الماء','الصلب','الفراغ'],correctIndex:2,difficulty:'easy',topic:'sound'},
+    {text:'الجسم الساكن تعني أن محصلة القوى المؤثرة عليه؟',options:['موجبة','سالبة','تساوي صفراً','غير محددة'],correctIndex:2,difficulty:'easy',topic:'forces'},
+    {text:'تشتيت الضوء الأبيض إلى ألوانه المختلفة يُسمى؟',options:['الانعكاس','الانكسار','التحليل الضوئي','الامتصاص'],correctIndex:2,difficulty:'easy',topic:'light'},
+    {text:'وظيفة الكريات البيضاء في الدم؟',options:['نقل الأكسجين','تجلط الدم','مقاومة الأمراض','نقل الغذاء'],correctIndex:2,difficulty:'easy',topic:'humanbody'},
+    {text:'أيُّ التالي مثال على مخلوط غير متجانس؟',options:['ماء وسكر','ماء وملح','رمل وماء','خل وماء'],correctIndex:2,difficulty:'easy',topic:'mixtures'},
+    /* متوسط */
+    {text:'درجة تجمد الماء النقي؟',options:['-10°م','0°م','4°م','10°م'],correctIndex:1,difficulty:'medium',topic:'matter'},
+    {text:'لفصل الحديد عن الرمل نستخدم؟',options:['الترشيح','التبخر','المغناطيس','الطرد المركزي'],correctIndex:2,difficulty:'medium',topic:'mixtures'},
+    {text:'عند تدفئة الغرفة بالمدفأة، تنتقل الحرارة في الهواء بطريقة؟',options:['التوصيل','الحمل الحراري','الإشعاع','الاحتكاك'],correctIndex:1,difficulty:'medium',topic:'energy'},
+    {text:'وزن جسم على الأرض 60 نيوتن، وتسارع الجاذبية 10 م/ث². ما كتلة الجسم؟',options:['50 كغ','6 كغ','600 كغ','0.6 كغ'],correctIndex:1,difficulty:'medium',topic:'forces'},
+    {text:'العدسة المحدبة تُستخدم في؟',options:['تصغير الأشياء','تكبير الأشياء','عكس الصورة فقط','تشتيت الضوء'],correctIndex:1,difficulty:'medium',topic:'light'},
+    {text:'وحدة قياس تردد الصوت هي؟',options:['نيوتن','ديسيبل','هرتز','واط'],correctIndex:2,difficulty:'medium',topic:'sound'},
+    {text:'البطارية في الدائرة الكهربائية مصدر؟',options:['المقاومة','القوة الدافعة الكهربائية','التيار المتردد','العزل'],correctIndex:1,difficulty:'medium',topic:'electricity'},
+    {text:'الكوكب الأقرب إلى الشمس؟',options:['الزهرة','عطارد','الأرض','المريخ'],correctIndex:1,difficulty:'medium',topic:'earth'},
+    {text:'الكائنات التي تحلل المواد العضوية الميتة تُسمى؟',options:['منتجات','مستهلكات','محللات','مفترسات'],correctIndex:2,difficulty:'medium',topic:'ecosystem'},
+    {text:'الكلى وظيفتها الرئيسية؟',options:['ضخ الدم','هضم الطعام','تنقية الدم وإخراج الفضلات','إنتاج الأنسولين'],correctIndex:2,difficulty:'medium',topic:'humanbody'},
+    {text:'عند تبريد البخار يتحول إلى ماء، هذا التغيير يُسمى؟',options:['التجمد','الغليان','التكثف','الذوبان'],correctIndex:2,difficulty:'medium',topic:'matter'},
+    {text:'تسارع الجاذبية الأرضية تقريباً؟',options:['1 م/ث²','5 م/ث²','10 م/ث²','100 م/ث²'],correctIndex:2,difficulty:'medium',topic:'forces'},
+    /* تفكير */
+    {text:'جسم كثافته 2 غ/سم³ وحجمه 30 سم³. ما كتلته؟',options:['15 غ','32 غ','60 غ','120 غ'],correctIndex:2,difficulty:'hard',topic:'matter'},
+    {text:'المولد الكهربائي يحول الطاقة من؟',options:['كهربائية إلى حركية','حرارية إلى كهربائية','حركية إلى كهربائية','كيميائية إلى كهربائية'],correctIndex:2,difficulty:'hard',topic:'energy'},
+    {text:'زاوية سقوط شعاع ضوئي على مرآة مستوية 55°. ما زاوية الانعكاس؟',options:['35°','45°','55°','110°'],correctIndex:2,difficulty:'hard',topic:'light'},
+    {text:'مقاومتان (4 أوم و6 أوم) موصولتان على التوالي. ما المقاومة الكلية؟',options:['2.4 أوم','10 أوم','24 أوم','1 أوم'],correctIndex:1,difficulty:'hard',topic:'electricity'},
+    {text:'في هرم الطاقة، أي مستوى يحتوي على أكبر كمية من الطاقة؟',options:['مستهلكات الدرجة الأولى','مستهلكات الدرجة الثانية','المنتجات (النباتات)','المحللات'],correctIndex:2,difficulty:'hard',topic:'ecosystem'},
+    {text:'في أي فصل يكون نصف الكرة الشمالي مائلاً نحو الشمس؟',options:['الشتاء','الربيع','الصيف','الخريف'],correctIndex:2,difficulty:'hard',topic:'earth'},
+    {text:'جسم كتلته 8 كغ وتسارعه 5 م/ث². ما القوة المؤثرة عليه؟ (ق = ك × ت)',options:['1.6 نيوتن','13 نيوتن','40 نيوتن','400 نيوتن'],correctIndex:2,difficulty:'hard',topic:'forces'},
+    {text:'أيُّ العوامل التالية لا يُعدّ من أسباب الأمراض المعدية؟',options:['البكتيريا','الفيروسات','الفطريات','نقص الفيتامينات'],correctIndex:3,difficulty:'hard',topic:'humanbody'}
+  ],
+
+  /* ══════════════ النسخة ج ══════════════ */
+  [
+    /* سهل */
+    {text:'السائل يأخذ شكل الإناء الذي يُوضع فيه لكنه؟',options:['لا يحتفظ بشكله','يحتفظ بحجمه','لا شكل له ولا حجم','يتمدد بلا حدود'],correctIndex:1,difficulty:'easy',topic:'matter'},
+    {text:'يحتاج النبات لعملية البناء الضوئي إلى؟',options:['أكسجين وماء فقط','ضوء وماء وثاني أكسيد الكربون','تربة وهواء فقط','ماء وسماد فقط'],correctIndex:1,difficulty:'easy',topic:'ecosystem'},
+    {text:'عنصر الدائرة الكهربائية المستخدم لقطع التيار وإغلاقه يُسمى؟',options:['البطارية','المقاومة','المصباح','المفتاح الكهربائي'],correctIndex:3,difficulty:'easy',topic:'electricity'},
+    {text:'المجرة التي تنتمي إليها مجموعتنا الشمسية؟',options:['المرأة المسلسلة','ذات الكراسي','درب التبانة','المثلث'],correctIndex:2,difficulty:'easy',topic:'earth'},
+    {text:'الطاقة الناتجة من احتراق الوقود هي؟',options:['ضوئية','نووية','حرارية','كهربائية'],correctIndex:2,difficulty:'easy',topic:'energy'},
+    {text:'الأمواج الصوتية أمواج؟',options:['كهرومغناطيسية','ضوئية','ميكانيكية','حرارية'],correctIndex:2,difficulty:'easy',topic:'sound'},
+    {text:'القوة التي تسحب الأجسام نحو مركز الأرض هي؟',options:['الاحتكاك','الطفو','الجاذبية','الشد'],correctIndex:2,difficulty:'easy',topic:'forces'},
+    {text:'الألوان الأساسية للضوء الأبيض هي؟',options:['أحمر وأصفر وأزرق','أحمر وأخضر وأزرق','أصفر وأخضر وبنفسجي','أحمر وأصفر وأخضر'],correctIndex:1,difficulty:'easy',topic:'light'},
+    {text:'الجهاز الذي يتحكم في جميع وظائف الجسم؟',options:['الدوري','الهضمي','التنفسي','العصبي'],correctIndex:3,difficulty:'easy',topic:'humanbody'},
+    {text:'خليط الماء والسكر مثال على؟',options:['مخلوط غير متجانس','معلق','محلول متجانس','مركب كيميائي'],correctIndex:2,difficulty:'easy',topic:'mixtures'},
+    /* متوسط */
+    {text:'أيُّ حالات المادة تتمدد بشكل كبير عند تسخينها وتملأ الحاوية بالكامل؟',options:['الصلبة','السائلة','الغازية','جميعها'],correctIndex:2,difficulty:'medium',topic:'matter'},
+    {text:'لفصل الزيت عن الماء نستخدم؟',options:['الترشيح','التبخر','الفصل بالكثافة','المغناطيس'],correctIndex:2,difficulty:'medium',topic:'mixtures'},
+    {text:'الطاقة التي تنتقل عبر الفراغ على شكل موجات كهرومغناطيسية؟',options:['الحرارة بالتوصيل','الحرارة بالحمل','الإشعاع الحراري','الاحتكاك'],correctIndex:2,difficulty:'medium',topic:'energy'},
+    {text:'قانون نيوتن الثالث يُجسده أفضل مثال؟',options:['سقوط التفاحة للأسفل','تحرك الكرة بعد ركلها','دفع الصاروخ للغاز يدفعه للأمام','وزن الجسم على الأرض'],correctIndex:2,difficulty:'medium',topic:'forces'},
+    {text:'عند انتقال الضوء من الهواء إلى الزجاج فإنه؟',options:['يعكس كلياً','ينكسر ويتغير اتجاهه','يتوقف','لا يتغير'],correctIndex:1,difficulty:'medium',topic:'light'},
+    {text:'العازل الصوتي الجيد يُستخدم في؟',options:['المصانع لتوصيل الصوت','قاعات السينما والاستوديوهات','الهواتف لتضخيم الصوت','الآلات الموسيقية'],correctIndex:1,difficulty:'medium',topic:'sound'},
+    {text:'الفيوز (القاطع) في الدائرة الكهربائية وظيفته؟',options:['زيادة التيار','تخزين الطاقة','حماية الدائرة من زيادة التيار','توزيع التيار بالتساوي'],correctIndex:2,difficulty:'medium',topic:'electricity'},
+    {text:'كسوف الشمس الكلي يحدث عندما؟',options:['تقف الأرض بين الشمس والقمر','يقف القمر بين الأرض والشمس','تقف الشمس بين الأرض والقمر','يدور القمر حول الشمس'],correctIndex:1,difficulty:'medium',topic:'earth'},
+    {text:'مصدر الطاقة الأساسي في معظم النظم البيئية؟',options:['الماء','التربة','الشمس','الهواء'],correctIndex:2,difficulty:'medium',topic:'ecosystem'},
+    {text:'أيُّ العناصر الغذائية مصدر الطاقة السريعة الرئيسي؟',options:['البروتينات','الدهون','الكربوهيدرات','الفيتامينات'],correctIndex:2,difficulty:'medium',topic:'humanbody'},
+    {text:'التغير الكيميائي يختلف عن الفيزيائي في أنه؟',options:['مؤقت','ينتج مواد جديدة','يمكن عكسه بسهولة','لا يغير الشكل'],correctIndex:1,difficulty:'medium',topic:'matter'},
+    {text:'الجسم يطفو في الماء إذا كانت كثافته أقل من كثافة الماء بسبب؟',options:['الاحتكاك','الجاذبية','قوة الطفو (الدفع)','الضغط الجوي'],correctIndex:2,difficulty:'medium',topic:'forces'},
+    /* تفكير */
+    {text:'كثافة الماء 1 غ/سم³. إذا كان حجم إناء 500 سم³ فما كتلة الماء فيه؟',options:['50 غ','500 غ','5000 غ','0.5 غ'],correctIndex:1,difficulty:'hard',topic:'matter'},
+    {text:'مصباح قدرته 100 واط وآخر قدرته 60 واط. أيهما يستهلك طاقة أكبر في نفس الوقت؟',options:['الـ 60 واط','الـ 100 واط','كلاهما متساويان','لا يمكن التحديد'],correctIndex:1,difficulty:'hard',topic:'energy'},
+    {text:'شعاع ضوئي يسقط عمودياً على مرآة مستوية (زاوية سقوط = 0°). ما زاوية الانعكاس؟',options:['0°','45°','90°','180°'],correctIndex:0,difficulty:'hard',topic:'light'},
+    {text:'جهد بطارية 12 فولت ومقاومة الدائرة 4 أوم. ما شدة التيار؟ (ت = ج ÷ م)',options:['0.3 أمبير','3 أمبير','8 أمبير','48 أمبير'],correctIndex:1,difficulty:'hard',topic:'electricity'},
+    {text:'لماذا تقل الطاقة المتاحة كلما ارتفعنا في مستويات هرم الطاقة؟',options:['لأن الكائنات تهاجر','لأن جزءاً من الطاقة يُفقد على شكل حرارة في كل مستوى','لأن الغذاء ينضب','لأن الشمس تبعد'],correctIndex:1,difficulty:'hard',topic:'ecosystem'},
+    {text:'خسوف القمر يحدث عندما؟',options:['يقف القمر بين الأرض والشمس','تقف الأرض بين الشمس والقمر','تقف الشمس بين الأرض والقمر','يكون القمر في أبعد نقطة عن الأرض'],correctIndex:1,difficulty:'hard',topic:'earth'},
+    {text:'جسم كتلته 4 كغ يتحرك بتسارع 6 م/ث². ما القوة المؤثرة عليه؟ (ق = ك × ت)',options:['1.5 نيوتن','10 نيوتن','24 نيوتن','36 نيوتن'],correctIndex:2,difficulty:'hard',topic:'forces'},
+    {text:'في أي جزء من الجهاز الهضمي يتم امتصاص معظم العناصر الغذائية؟',options:['المعدة','الأمعاء الغليظة','الأمعاء الدقيقة','الفم'],correctIndex:2,difficulty:'hard',topic:'humanbody'}
+  ]
+];
+
+/* ══ اختيار نسخة عشوائية ══ */
+const versionIdx   = Math.floor(Math.random() * 3);
+const versionLabel = ['أ','ب','ج'][versionIdx];
+const questions    = versions[versionIdx];
+document.getElementById('versionBadge').textContent = 'النسخة ' + versionLabel;
+
+/* ══ بناء الأسئلة ══ */
+const container = document.getElementById('questionsContainer');
+const sections = [
+  {label:'🟢 الأسئلة السهلة (1 – 10)',   tagClass:'tag-easy',   range:[0,9]},
+  {label:'🟡 الأسئلة المتوسطة (11 – 22)', tagClass:'tag-medium', range:[10,21]},
+  {label:'🔴 أسئلة التفكير (23 – 30)',     tagClass:'tag-hard',   range:[22,29]}
+];
+sections.forEach(sec => {
+  const div = document.createElement('div');
+  div.className = 'section-divider';
+  div.innerHTML = `<div class="line"></div><span class="difficulty-tag ${sec.tagClass}">${sec.label}</span><div class="line"></div>`;
+  container.appendChild(div);
+  for (let i = sec.range[0]; i <= sec.range[1]; i++) container.appendChild(buildCard(i));
+});
+
+function buildCard(idx) {
+  const q = questions[idx];
+  const card = document.createElement('div');
+  card.className = 'question-card'; card.id = `card-${idx}`;
+  const optHTML = q.options.map((opt,oi) =>
+    `<li class="option-item" id="opt-${idx}-${oi}">
+       <input type="radio" name="q${idx}" id="r-${idx}-${oi}" value="${oi}" onchange="onAnswer(${idx})">
+       <label for="r-${idx}-${oi}" style="cursor:pointer;flex:1">${opt}</label>
+     </li>`).join('');
+  card.innerHTML = `
+    <div class="question-header">
+      <span class="q-number">سؤال ${idx+1}</span>
+      <p class="q-text">${q.text}</p>
+    </div>
+    <ul class="options-list">${optHTML}</ul>
+    <div class="correct-reveal" id="reveal-${idx}">✅ الإجابة الصحيحة: ${q.options[q.correctIndex]}</div>`;
+  return card;
+}
+
+/* ══ تقدم ══ */
+function onAnswer(idx){ document.getElementById(`card-${idx}`).classList.add('answered'); updateProgress(); hideAlert(); }
+function countAnswered(){ let c=0; questions.forEach((_,i)=>{ if(document.querySelector(`input[name="q${i}"]:checked`)) c++; }); return c; }
+function updateProgress(){ const a=countAnswered(),t=questions.length,p=(a/t)*100; document.getElementById('progressFill').style.width=p+'%'; document.getElementById('progressCount').textContent=`${a} / ${t}`; }
+
+/* ══ النتيجة ══ */
+let submitted = false;
+function showResult(){
+  if(countAnswered()<questions.length){ showAlert(); return; }
+  hideAlert(); submitted=true;
+  const name = document.getElementById('studentName').value.trim()||'الطالب';
+  let correct=0; const wrongTopics=[];
+  questions.forEach((q,i)=>{
+    const chosen=parseInt(document.querySelector(`input[name="q${i}"]:checked`).value);
+    const card=document.getElementById(`card-${i}`);
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(r=>{ r.disabled=true; r.closest('.option-item').classList.add('disabled'); });
+    if(chosen===q.correctIndex){ correct++; card.classList.add('correct-card'); document.getElementById(`opt-${i}-${chosen}`).classList.add('selected-correct'); }
+    else{ card.classList.add('wrong-card'); document.getElementById(`opt-${i}-${chosen}`).classList.add('selected-wrong'); document.getElementById(`opt-${i}-${q.correctIndex}`).classList.add('show-correct'); document.getElementById(`reveal-${i}`).classList.add('visible'); wrongTopics.push(q.topic); }
+  });
+  const pct=Math.round((correct/questions.length)*100), grade=getGrade(pct);
+  document.getElementById('resultTrophy').textContent=grade.trophy;
+  document.getElementById('resultName').textContent=`👤 ${name}`;
+  document.getElementById('resultScore').textContent=correct;
+  document.getElementById('resultPercent').textContent=`النسبة المئوية: ${pct}%`;
+  const g=document.getElementById('resultGrade'); g.textContent=grade.label; g.className=`result-grade ${grade.css}`;
+  document.getElementById('resultMsg').textContent=grade.msg;
+  document.getElementById('resultBox').classList.add('visible');
+  generateReport(wrongTopics);
+  document.getElementById('resultBox').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+/* ══ تقرير الأداء ══ */
+function generateReport(wrongTopics){
+  const errCount={}, totCount={};
+  questions.forEach(q=>{ totCount[q.topic]=(totCount[q.topic]||0)+1; });
+  wrongTopics.forEach(t=>{ errCount[t]=(errCount[t]||0)+1; });
+  const needsReview=Object.keys(errCount).sort((a,b)=>errCount[b]-errCount[a]);
+  const mastered=Object.keys(totCount).filter(t=>!errCount[t]);
+  let html=`<div class="report-title">📊 تقرير الأداء التفصيلي</div>`;
+  if(needsReview.length===0){
+    html+=`<div style="text-align:center;padding:16px;font-size:15px;font-weight:700;color:#0a6b8a;">🌟 أحسنت! لم تُخطئ في أي درس. أداء مثالي!</div>`;
+  } else {
+    html+=`<p class="report-subtitle bad">📖 دروس تحتاج إلى مراجعة:</p><div class="report-list">`;
+    needsReview.forEach(t=>{ html+=`<div class="report-item needs-review"><span class="report-item-name">❌ ${topicNames[t]}</span><span class="report-item-badge badge-wrong">${errCount[t]} خطأ من ${totCount[t]}</span></div>`; });
+    html+=`</div>`;
+  }
+  if(mastered.length>0){
+    html+=`<p class="report-subtitle good">✅ دروس أتقنتها:</p><div class="report-list">`;
+    mastered.forEach(t=>{ html+=`<div class="report-item mastered"><span class="report-item-name">✅ ${topicNames[t]}</span><span class="report-item-badge badge-right">كل ${totCount[t]} صح</span></div>`; });
+    html+=`</div>`;
+  }
+  if(needsReview.length>0){
+    html+=`<div class="report-tip">💡 <strong>نصيحة:</strong> ركّز في مراجعتك على: ${needsReview.map(t=>topicNames[t]).join(' — ')}. راجع الأمثلة الحلَّة في كتاب العلوم وحاول حل تمارين إضافية.</div>`;
+  }
+  const box=document.getElementById('reportBox');
+  box.innerHTML=html; box.classList.add('visible');
+}
+
+/* ══ تقييم ══ */
+function getGrade(pct){
+  if(pct>=90) return{label:'⭐ ممتاز',css:'grade-excellent',trophy:'🏆',msg:'أداء علمي رائع! أنت عالم المستقبل، استمر في الاستكشاف والتميز! 🌟'};
+  if(pct>=80) return{label:'✨ جيد جداً',css:'grade-verygood',trophy:'🥇',msg:'عمل جيد جداً! راجع الأسئلة التي أخطأت فيها وستصل للقمة! 💪'};
+  if(pct>=70) return{label:'👍 جيد',css:'grade-good',trophy:'🥈',msg:'أداء جيد! مع مزيد من المراجعة والتجربة ستتحسن كثيراً. 🔬'};
+  if(pct>=60) return{label:'📝 مقبول',css:'grade-pass',trophy:'🥉',msg:'راجع الوحدات التي أخطأت فيها، ستتحسن في المرة القادمة! 💡'};
+  return{label:'📖 يحتاج مراجعة',css:'grade-fail',trophy:'💙',msg:'لا تيأس! المراجعة والفضول العلمي سيجعلانك أفضل. أنت قادر! 🌱'};
+}
+
+/* ══ إعادة ══ */
+function resetTest(){
+  submitted=false;
+  document.getElementById('studentName').value='';
+  document.getElementById('resultBox').classList.remove('visible');
+  const rb=document.getElementById('reportBox'); rb.classList.remove('visible'); rb.innerHTML='';
+  questions.forEach((_,i)=>{
+    const card=document.getElementById(`card-${i}`);
+    card.classList.remove('answered','correct-card','wrong-card');
+    document.querySelectorAll(`input[name="q${i}"]`).forEach((r,oi)=>{ r.checked=false; r.disabled=false; document.getElementById(`opt-${i}-${oi}`).classList.remove('disabled','selected-correct','selected-wrong','show-correct'); });
+    document.getElementById(`reveal-${i}`).classList.remove('visible');
+  });
+  hideAlert(); updateProgress(); window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showAlert(){ const a=document.getElementById('alertBox'); a.classList.remove('visible'); void a.offsetWidth; a.classList.add('visible'); a.scrollIntoView({behavior:'smooth',block:'center'}); }
+function hideAlert(){ document.getElementById('alertBox').classList.remove('visible'); }
+updateProgress();
+</script>
+</body>
+</html>
