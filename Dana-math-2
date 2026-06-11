@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>اختبار دانه الحلوه - رياضيات الصف الثالث</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap');
+
+  :root {
+    --pink-100: #fff0f6;
+    --pink-200: #ffd6e8;
+    --pink-300: #ffadd2;
+    --pink-400: #ff85bc;
+    --pink-500: #f06292;
+    --pink-600: #e91e8c;
+    --lavender-100: #f3eeff;
+    --lavender-200: #e3d4ff;
+    --lavender-300: #c5a8ff;
+    --lavender-400: #a374f7;
+    --white: #ffffff;
+    --text-dark: #3a1a2e;
+    --text-mid: #6d3b5a;
+    --text-light: #a06080;
+    --green-ok: #27ae60;
+    --red-wrong: #e53935;
+    --shadow-soft: 0 4px 24px rgba(240,98,146,0.13);
+    --shadow-card: 0 2px 16px rgba(163,116,247,0.10);
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --radius-sm: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Tajawal', 'Arial', sans-serif;
+    background: linear-gradient(145deg, #fff0f6 0%, #f3eeff 40%, #ffe4f0 100%);
+    min-height: 100vh;
+    color: var(--text-dark);
+    padding: 0 0 60px;
+  }
+
+  /* ===== HEADER ===== */
+  .hero {
+    background: linear-gradient(135deg, #f8a8cf 0%, #d89af0 50%, #f06292 100%);
+    padding: 38px 20px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 6px 32px rgba(240,98,146,0.22);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 15% 80%, rgba(255,255,255,0.18) 0%, transparent 50%),
+      radial-gradient(circle at 85% 20%, rgba(255,255,255,0.15) 0%, transparent 40%);
+  }
+  .hero-deco {
+    font-size: 2rem;
+    letter-spacing: 8px;
+    opacity: 0.85;
+    margin-bottom: 10px;
+    display: block;
+    animation: floatDeco 3s ease-in-out infinite alternate;
+  }
+  @keyframes floatDeco {
+    from { transform: translateY(0px); }
+    to   { transform: translateY(-6px); }
+  }
+  .hero-title {
+    font-size: clamp(2.4rem, 8vw, 4.2rem);
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 3px 14px rgba(180,0,90,0.25), 0 1px 0 rgba(255,255,255,0.4);
+    line-height: 1.2;
+    position: relative;
+    letter-spacing: 2px;
+  }
+  .hero-title span {
+    color: #ffe4f0;
+    text-shadow: 0 0 20px rgba(255,200,230,0.8);
+  }
+  .hero-sub {
+    margin-top: 10px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.93);
+    background: rgba(255,255,255,0.18);
+    display: inline-block;
+    padding: 6px 22px;
+    border-radius: 50px;
+    backdrop-filter: blur(4px);
+    position: relative;
+  }
+  .hero-badge {
+    margin-top: 14px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.88);
+    position: relative;
+  }
+
+  /* ===== CONTAINER ===== */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  /* ===== INFO CARD ===== */
+  .info-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: 28px 28px 22px;
+    margin-top: 32px;
+    border: 2px solid var(--pink-200);
+    position: relative;
+    overflow: hidden;
+  }
+  .info-card::before {
+    content: '🌸';
+    position: absolute;
+    left: 18px;
+    top: 18px;
+    font-size: 1.8rem;
+    opacity: 0.3;
+  }
+  .info-card h2 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--pink-600);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .name-label {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-mid);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .name-input {
+    width: 100%;
+    max-width: 340px;
+    padding: 12px 18px;
+    border: 2.5px solid var(--pink-300);
+    border-radius: var(--radius-sm);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    background: var(--pink-100);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    direction: rtl;
+  }
+  .name-input:focus {
+    border-color: var(--pink-500);
+    box-shadow: 0 0 0 3px rgba(240,98,146,0.15);
+  }
+  .instructions {
+    margin-top: 16px;
+    background: var(--lavender-100);
+    border-right: 4px solid var(--lavender-300);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    font-size: 0.98rem;
+    font-weight: 500;
+    color: var(--text-mid);
+    line-height: 1.8;
+  }
+  .version-tag {
+    margin-top: 12px;
+    display: inline-block;
+    background: var(--pink-100);
+    border: 1.5px dashed var(--pink-300);
+    color: var(--pink-600);
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 50px;
+  }
+
+  /* ===== PROGRESS BAR ===== */
+  .progress-wrapper {
+    margin: 24px 0 0;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 18px 24px;
+    box-shadow: var(--shadow-card);
+    border: 2px solid var(--lavender-200);
+    position: sticky;
+    top: 8px;
+    z-index: 10;
+  }
+  .progress-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-mid);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .progress-label span {
+    color: var(--lavender-400);
+    font-size: 1.1rem;
+    font-weight: 800;
+  }
+  .progress-track {
+    width: 100%;
+    height: 16px;
+    background: var(--lavender-100);
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1.5px solid var(--lavender-200);
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--lavender-300), var(--pink-400));
+    transition: width 0.4s cubic-bezier(.4,0,.2,1);
+    width: 0%;
+    position: relative;
+  }
+  .progress-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, transparent 100%);
+    border-radius: 999px;
+  }
+
+  /* ===== QUESTION CARDS ===== */
+  .questions-section { margin-top: 28px; }
+
+  .q-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 24px 26px 20px;
+    margin-bottom: 20px;
+    border: 2px solid transparent;
+    transition: border-color 0.25s, box-shadow 0.25s, transform 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+  .q-card:hover {
+    box-shadow: 0 6px 28px rgba(240,98,146,0.14);
+    transform: translateY(-1px);
+  }
+  .q-card.answered { border-color: var(--pink-200); }
+  .q-card.correct-card { border-color: #a5d6a7; background: #f0fff4; }
+  .q-card.wrong-card { border-color: #ef9a9a; background: #fff5f5; }
+
+  .q-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--pink-400), var(--lavender-400));
+    color: white;
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 5px 14px;
+    border-radius: 0 var(--radius-lg) 0 var(--radius-md);
+    letter-spacing: 0.5px;
+  }
+
+  .q-text {
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.7;
+    margin-bottom: 18px;
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 8px;
+  }
+
+  .options-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    background: var(--pink-100);
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s, transform 0.12s;
+    position: relative;
+  }
+  .option-item:hover {
+    background: var(--pink-200);
+    border-color: var(--pink-300);
+    transform: translateX(-2px);
+  }
+  .option-item input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--pink-500);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .option-item label {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    cursor: pointer;
+    flex: 1;
+    line-height: 1.5;
+  }
+
+  /* After result */
+  .option-item.is-correct {
+    background: #d4edda;
+    border-color: #27ae60;
+  }
+  .option-item.is-correct label { color: #155724; font-weight: 800; }
+
+  .option-item.is-wrong-choice {
+    background: #fde8e8;
+    border-color: #e53935;
+  }
+  .option-item.is-wrong-choice label { color: #8b0000; font-weight: 800; }
+
+  .option-item.disabled { pointer-events: none; }
+
+  .correct-answer-hint {
+    margin-top: 12px;
+    padding: 9px 14px;
+    background: #eafaf1;
+    border-right: 4px solid #27ae60;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #155724;
+    display: none;
+  }
+  .correct-answer-hint.show { display: block; }
+
+  /* ===== RESULT BOX ===== */
+  .result-box {
+    display: none;
+    background: linear-gradient(135deg, #fff0f8 0%, #f3eeff 100%);
+    border: 3px solid var(--pink-300);
+    border-radius: var(--radius-lg);
+    padding: 36px 30px 32px;
+    margin: 32px 0;
+    box-shadow: 0 8px 40px rgba(240,98,146,0.18);
+    text-align: center;
+    animation: popIn 0.5s cubic-bezier(.22,1.6,.36,1);
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.88) translateY(20px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .result-box.show { display: block; }
+
+  .result-stars {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    display: block;
+    animation: starBounce 0.7s ease-in-out 0.2s both;
+  }
+  @keyframes starBounce {
+    0%   { transform: scale(0); opacity: 0; }
+    60%  { transform: scale(1.25); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+  .result-name {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--pink-600);
+    margin-bottom: 8px;
+  }
+  .result-score {
+    font-size: 3.2rem;
+    font-weight: 900;
+    color: var(--lavender-400);
+    line-height: 1.1;
+  }
+  .result-score-sub {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-mid);
+    margin: 4px 0 14px;
+  }
+  .result-percent {
+    display: inline-block;
+    padding: 8px 28px;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    font-weight: 900;
+    margin-bottom: 16px;
+    border: 2.5px solid;
+  }
+  .grade-excellent { background: #d4edda; color: #155724; border-color: #27ae60; }
+  .grade-great     { background: #e8f4fd; color: #0c5460; border-color: #17a2b8; }
+  .grade-good      { background: #fff3cd; color: #856404; border-color: #ffc107; }
+  .grade-ok        { background: #ffe0b2; color: #7b3a00; border-color: #ff9800; }
+  .grade-retry     { background: #fde8e8; color: #8b0000; border-color: #e53935; }
+
+  .result-msg {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-top: 10px;
+    line-height: 1.7;
+  }
+
+  /* ===== REVIEW REPORT ===== */
+  .review-report {
+    margin-top: 26px;
+    text-align: right;
+    background: var(--white);
+    border-radius: var(--radius-md);
+    border: 2px solid var(--lavender-200);
+    padding: 20px 22px;
+    box-shadow: var(--shadow-card);
+  }
+  .review-report h3 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--lavender-400);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .review-all-good {
+    background: #eafaf1;
+    border: 2px solid #a5d6a7;
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #155724;
+    text-align: center;
+  }
+  .review-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .review-item {
+    background: #fff8fb;
+    border: 1.5px solid var(--pink-200);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .review-item-name {
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+  .review-item-count {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--pink-600);
+    background: var(--pink-100);
+    padding: 4px 12px;
+    border-radius: 50px;
+    white-space: nowrap;
+  }
+  .review-footer-msg {
+    margin-top: 14px;
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: var(--text-mid);
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn-area {
+    text-align: center;
+    margin: 32px 0 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+  }
+
+  .btn-submit {
+    background: linear-gradient(135deg, var(--pink-500), var(--lavender-400));
+    color: white;
+    border: none;
+    padding: 16px 44px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(240,98,146,0.35);
+    transition: transform 0.15s, box-shadow 0.15s;
+    letter-spacing: 0.5px;
+  }
+  .btn-submit:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 28px rgba(240,98,146,0.42);
+  }
+  .btn-submit:active { transform: scale(0.97); }
+
+  .btn-reset {
+    background: white;
+    color: var(--pink-600);
+    border: 2.5px solid var(--pink-400);
+    padding: 14px 36px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.15s;
+  }
+  .btn-reset:hover {
+    background: var(--pink-100);
+    transform: translateY(-2px);
+  }
+
+  /* ===== ALERT ===== */
+  .alert-msg {
+    display: none;
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    border-radius: var(--radius-sm);
+    padding: 14px 20px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #856404;
+    text-align: center;
+    margin: 10px 0;
+    animation: shake 0.4s ease-in-out;
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%  { transform: translateX(-6px); }
+    40%  { transform: translateX(6px); }
+    60%  { transform: translateX(-4px); }
+    80%  { transform: translateX(4px); }
+  }
+  .alert-msg.show { display: block; }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    font-size: 0.92rem;
+    color: var(--text-light);
+    font-weight: 500;
+  }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; }
+    .hero { background: #f8a8cf; box-shadow: none; print-color-adjust: exact; }
+    .progress-wrapper { position: static; box-shadow: none; }
+    .btn-area, .btn-submit, .btn-reset { display: none; }
+    .q-card { break-inside: avoid; page-break-inside: avoid; box-shadow: none; }
+    .result-box { break-inside: avoid; }
+    .review-report { break-inside: avoid; }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 600px) {
+    .info-card, .q-card { padding: 18px 14px; }
+    .hero { padding: 28px 14px 22px; }
+    .result-score { font-size: 2.4rem; }
+    .btn-submit { font-size: 1.05rem; padding: 14px 28px; }
+    .review-item { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO HEADER -->
+<div class="hero">
+  <span class="hero-deco">🌸 💖 ⭐ 🦋 🌷 ⭐ 💖 🌸</span>
+  <h1 class="hero-title">اختبار <span>دانه</span> الحلوه 💕</h1>
+  <div class="hero-sub">رياضيات 🌟 الصف الثالث الابتدائي 🌟 الفصل الثاني</div>
+  <div class="hero-badge">المنهج السعودي 🎀</div>
+</div>
+
+<div class="container">
+
+  <!-- INFO CARD -->
+  <div class="info-card">
+    <h2>✏️ معلومات الطالبة</h2>
+    <span class="name-label">اكتبي اسمك يا بطلة:</span>
+    <input class="name-input" type="text" id="studentName" placeholder="دانه" value="دانه" />
+    <div class="instructions">
+      📌 <strong>التعليمات:</strong> اختاري الإجابة الصحيحة لكل سؤال من الخيارات الأربعة.
+      بعد الانتهاء من الإجابة على جميع الأسئلة اضغطي على زر <strong>"عرض النتيجة"</strong>. 🌟<br/>
+      💪 <strong>بالتوفيق يا دانه يا بطلة، أنتِ قادرة!</strong>
+    </div>
+    <div class="version-tag" id="versionTag">نسخة الاختبار: ١</div>
+  </div>
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-wrapper">
+    <div class="progress-label">
+      <span>📊 التقدم في الاختبار</span>
+      <span id="progressText">0 / 30</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <!-- QUESTIONS -->
+  <div class="questions-section" id="questionsSection">
+    <!-- Questions are injected by JS -->
+  </div>
+
+  <!-- ALERT -->
+  <div class="alert-msg" id="alertMsg">⚠️ يا دانه الحلوه، لم تكملي الإجابة على جميع الأسئلة! تأكدي من الإجابة على كل سؤال قبل عرض النتيجة. 💕</div>
+
+  <!-- BUTTONS -->
+  <div class="btn-area">
+    <button class="btn-submit" onclick="submitTest()">🌟 عرض النتيجة 🌟</button>
+    <button class="btn-reset" onclick="resetTest()">🔄 إعادة الاختبار</button>
+  </div>
+
+  <!-- RESULT BOX -->
+  <div class="result-box" id="resultBox">
+    <span class="result-stars" id="resultStars">⭐⭐⭐</span>
+    <div class="result-name" id="resultName"></div>
+    <div class="result-score" id="resultScore"></div>
+    <div class="result-score-sub" id="resultScoreSub"></div>
+    <div class="result-percent" id="resultPercent"></div>
+    <div class="result-msg" id="resultMsg"></div>
+
+    <div class="review-report" id="reviewReport">
+      <h3>📚 تقرير المراجعة</h3>
+      <div id="reviewContent"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    🌸 أُعدَّ هذا الاختبار خصيصاً لدانه الحلوه 🌸 رياضيات | الصف الثالث الابتدائي | الفصل الثاني
+  </div>
+</div>
+
+<script>
+// =====================================================================
+// THREE QUESTION SETS (30 questions each = 90 total)
+//
+// Content scope verified against the official Saudi Grade 3, Semester 2
+// (1447H edition) table of contents, covering ONLY:
+//   - Chapter 6-7: Division (relation to subtraction/multiplication,
+//     dividing by 2,3,4,5,6,7,8,9,10, dividing with zero and one)
+//   - Chapter 8: Measurement (mm/cm, metric length units, perimeter,
+//     area, metric capacity units, metric mass units, volume,
+//     time: reading the clock)
+//   - Chapter 9: Geometric shapes (3D solids, plane shapes,
+//     geometric patterns, symmetry)
+//   - Chapter 10: Data (pictographs, bar graphs, probability)
+//   - Chapter 11: Fractions (representing fractions, parts of a whole,
+//     parts of a set, equivalent fractions, comparing/ordering fractions)
+//
+// Topics NOT in this semester's curriculum (multiplication tables,
+// money, odd/even numbers, rounding, calendar, AM/PM) have been removed.
+// =====================================================================
+
+const questionSets = [
+
+// ================= SET 1 =================
+[
+  // --- Division (Ch.6-7) — harder: bigger quotients, two-step, missing factor ---
+  { id:1,  text:"➗ ما حاصل قسمة: ١٨ ÷ ٢ = ؟", options:["٧","٨","٩","١٠"], answer:2, skill:"القسمة على ٢" },
+  { id:2,  text:"➗ ما حاصل قسمة: ٤٥ ÷ ٥ = ؟", options:["٧","٨","٩","١٠"], answer:2, skill:"القسمة على ٥" },
+  { id:3,  text:"➗ عدد إذا قُسِّم على ١٠ كان الناتج ٨. ما هذا العدد؟", options:["١٨","٧٠","٨٠","٨٨"], answer:2, skill:"القسمة على ١٠" },
+  { id:4,  text:"➗ أي العمليات التالية ناتجها يساوي ٦ بالضبط؟", options:["٦ ÷ ١","٠ ÷ ٦","١ ÷ ٦","٦ ÷ ٦"], answer:0, skill:"القسمة مع الصفر وعلى الواحد" },
+  { id:5,  text:"➗ إذا كان الناتج = ٠، وأحد الأعداد = ٧، فما العدد المقسوم؟", options:["١","٧","٠","غير ممكن معرفته"], answer:2, skill:"القسمة مع الصفر وعلى الواحد" },
+  { id:6,  text:"🔗 عند دانه ٢٤ زهرة تريد توزيعها بالتساوي على ٤ مزهريات بالطرح المتكرر. كم مرة ستطرح ٤ من ٢٤ حتى تصل إلى الصفر؟", options:["٤ مرات","٥ مرات","٦ مرات","٨ مرات"], answer:2, skill:"علاقة القسمة بالطرح" },
+  { id:7,  text:"🔗 إذا كان × × ٦ = ٤٢، وكان ٤٢ ÷ ٦ = ٧، فما قيمة ×؟", options:["٦","٧","٨","٩"], answer:1, skill:"علاقة القسمة بالضرب" },
+  { id:8,  text:"➗ ٣٢ ÷ ٤ = ؟ ثم ضربتِ الناتج × ٢. ما النتيجة النهائية؟", options:["١٢","١٤","١٦","١٨"], answer:2, skill:"القسمة على ٣ وعلى ٤" },
+  { id:9,  text:"➗ أي عدد عند قسمته على ٣ يكون الناتج ٩؟", options:["١٢","٢١","٢٤","٢٧"], answer:3, skill:"القسمة على ٣ وعلى ٤" },
+  { id:10, text:"➗ ٤٨ ÷ ٦ = ؟ ثم اطرحي ٣ من الناتج. ما النتيجة؟", options:["٤","٥","٦","٧"], answer:1, skill:"القسمة على ٦ وعلى ٧" },
+  { id:11, text:"➗ عدد القسمة ٦٣ ÷ ٧ يساوي عدد آخر مقسوماً على ٢. ما هذا العدد الآخر؟", options:["١٤","١٦","١٨","٢٠"], answer:2, skill:"القسمة على ٦ وعلى ٧" },
+  { id:12, text:"➗ إذا كان ٨ × ٩ = ٧٢، فما ناتج ٧٢ ÷ ٩ زائد ٧٢ ÷ ٨؟", options:["١٧","١٨","١٩","٢٠"], answer:0, skill:"القسمة على ٨ وعلى ٩" },
+
+  // --- Measurement (Ch.8) — harder: combined steps, conversions, comparisons ---
+  { id:13, text:"📏 عند دانه شريط طوله ٥ سم و٤ مم. كم يساوي طول الشريط بالمليمترات بالكامل؟", options:["٤٥ مم","٥٤ مم","٩ مم","٥٠٤ مم"], answer:1, skill:"المليمتر والسنتيمتر" },
+  { id:14, text:"📏 طول طاولة ١٢٠ سم. كم يساوي هذا الطول بالأمتار؟ (١ متر = ١٠٠ سم)", options:["١ متر","١.٢ متر","١٢ متراً","٠.٢ متر"], answer:1, skill:"وحدات الطول المترية" },
+  { id:15, text:"📐 مستطيل عرضه ٣ سم ومحيطه ١٦ سم. ما طوله؟", options:["٣ سم","٥ سم","٦ سم","٨ سم"], answer:1, skill:"المحيط" },
+  { id:16, text:"📐 مربعان: الأول طول ضلعه ٣ سم، والثاني طول ضلعه ٥ سم. كم يزيد محيط الثاني عن محيط الأول؟", options:["٢ سم","٤ سم","٨ سم","١٢ سم"], answer:2, skill:"المحيط" },
+  { id:17, text:"🟦 شكل على ورقة مربعات مساحته ٢٠ مربعاً، وطوله ٥ مربعات. كم يساوي عرضه؟", options:["٣ مربعات","٤ مربعات","٥ مربعات","٦ مربعات"], answer:1, skill:"قياس المساحة" },
+  { id:18, text:"🟩 مستطيلان: الأول (٤×٣) مربعات، والثاني (٢×٥) مربعات. أيُّهما مساحته أكبر؟", options:["الأول أكبر","الثاني أكبر","متساويان","لا يمكن معرفة ذلك"], answer:2, skill:"قياس المساحة" },
+  { id:19, text:"🥛 عند دانه عبوة سعتها ١ لتر، استخدمت منها ٣٠٠ ملليلتر. كم بقي فيها؟ (١ لتر = ١٠٠٠ مل)", options:["٣٠٠ مل","٦٠٠ مل","٧٠٠ مل","١٣٠٠ مل"], answer:2, skill:"وحدات السعة المترية" },
+  { id:20, text:"🪣 رتبي الأواني التالية من الأقل سعةً إلى الأكثر: دلو، كوب، حوض سباحة", options:["كوب، دلو، حوض سباحة","حوض سباحة، دلو، كوب","دلو، كوب، حوض سباحة","كوب، حوض سباحة، دلو"], answer:0, skill:"وحدات السعة المترية" },
+  { id:21, text:"⚖️ عند دانه كيس به ٢ كيلوغرام من الأرز، استخدمت منه ٣٠٠ غرام. كم بقي تقريباً؟ (١ كغم = ١٠٠٠ غرام)", options:["١٧٠٠ غرام","١٧٠٠ كغم","١٧ غرام","٢٣٠٠ غرام"], answer:0, skill:"وحدات الكتلة المترية" },
+  { id:22, text:"⚖️ رتبي التالي من الأخف إلى الأثقل: حقيبة كتب، قلم، سيارة", options:["قلم، حقيبة كتب، سيارة","سيارة، حقيبة كتب، قلم","حقيبة كتب، قلم، سيارة","قلم، سيارة، حقيبة كتب"], answer:0, skill:"وحدات الكتلة المترية" },
+  { id:23, text:"📦 عند مقارنة حجمي صندوقين متشابهين في الشكل، أحدهما أطول من الآخر بوضوح. أيُّهما حجمه أكبر على الأغلب؟", options:["الأقصر","الأطول","متساويان دائماً","لا علاقة للطول بالحجم"], answer:1, skill:"استكشف: الحجم" },
+  { id:24, text:"🕐 بدأ درس الرياضيات الساعة ٩:٠٠ تماماً واستمر ٤٥ دقيقة. متى ينتهي الدرس؟", options:["٩:١٥","٩:٣٠","٩:٤٥","١٠:٠٠"], answer:2, skill:"الزمن: قراءة الساعة" },
+
+  // --- Geometric shapes (Ch.9) — harder: properties & multi-step patterns ---
+  { id:25, text:"📦 أيُّ المجسمات التالية له وجهان دائريان وسطح منحنٍ واحد؟", options:["المكعب","الهرم","الأسطوانة","المخروط"], answer:2, skill:"المجسمات" },
+  { id:26, text:"🔷 شكل له ٤ أضلاع متساوية الطول وزواياه الأربع قائمة. ما اسم هذا الشكل؟", options:["مستطيل غير مربع","مربع","معين غير مربع","شبه منحرف"], answer:1, skill:"الأشكال المستوية" },
+  { id:27, text:"🔺 في النمط: مثلث، مثلث، مربع، مثلث، مثلث، مربع، مثلث، مثلث، __ . ما الشكل التالي؟", options:["مثلث","مربع","دائرة","نجمة"], answer:1, skill:"الأنماط الهندسية" },
+
+  // --- Data (Ch.10) — harder: two-step reading + comparison ---
+  { id:28, text:"📊 في جدول صور: كل صورة نجمة = ٤ نقاط. حصلت دانه على ٣ نجمات وأختها على ٢ نجمة. كم الفرق بين نقاطهما؟", options:["٤","٨","١٢","٢٠"], answer:1, skill:"التمثيل بالرموز" },
+  { id:29, text:"📊 في رسم بالأعمدة: القراءة = ٧، الرسم = ٥، الرياضة = ٤. ما مجموع الأنشطة الثلاثة؟", options:["١٤","١٥","١٦","١٨"], answer:2, skill:"التمثيل بالأعمدة" },
+
+  // --- Fractions (Ch.11) — harder: equivalence reasoning ---
+  { id:30, text:"🍕 لوحظ أن ٣/٦ من البيتزا يساوي ١/٢ منها. ما الكسر الآخر الذي يساوي أيضاً ١/٢؟", options:["٢/٣","٢/٤","٤/٦","٣/٤"], answer:1, skill:"استكشف: الكسور المتكافئة" }
+],
+
+// ================= SET 2 =================
+[
+  // --- Division (Ch.6-7) — harder ---
+  { id:1,  text:"➗ ما حاصل قسمة: ١٦ ÷ ٢ = ؟ ثم اجمعي الناتج مع ٥", options:["١٢","١٣","١٤","١٥"], answer:1, skill:"القسمة على ٢" },
+  { id:2,  text:"➗ عدد إذا قُسِّم على ٥ كان الناتج ٧. ما هذا العدد؟", options:["٢٥","٣٠","٣٥","٤٠"], answer:2, skill:"القسمة على ٥" },
+  { id:3,  text:"➗ ما حاصل قسمة: ٩٠ ÷ ١٠ = ؟", options:["٧","٨","٩","١٠"], answer:2, skill:"القسمة على ١٠" },
+  { id:4,  text:"➗ أي العبارات التالية صحيحة؟", options:["أي عدد ÷ صفر = نفس العدد","صفر ÷ أي عدد (غير الصفر) = صفر","أي عدد ÷ ١ = صفر","١ ÷ أي عدد = صفر دائماً"], answer:1, skill:"القسمة مع الصفر وعلى الواحد" },
+  { id:5,  text:"➗ ٨ ÷ ١ = ؟ ثم ٠ ÷ ٨ = ؟ ما مجموع الناتجين؟", options:["٠","٨","١٦","غير معروف"], answer:1, skill:"القسمة مع الصفر وعلى الواحد" },
+  { id:6,  text:"🔗 عند دانه ٣٠ خرزة لعمل عقود، كل عقد يحتاج ٦ خرزات. كم عقداً يمكنها عمله؟ (استخدمي الطرح المتكرر للتحقق)", options:["٤ عقود","٥ عقود","٦ عقود","٧ عقود"], answer:1, skill:"علاقة القسمة بالطرح" },
+  { id:7,  text:"🔗 إذا كان ٧ × × = ٥٦، وكان ٥٦ ÷ ٧ = ٨، فما قيمة ×؟", options:["٧","٨","٦","٩"], answer:1, skill:"علاقة القسمة بالضرب" },
+  { id:8,  text:"➗ ٤٠ ÷ ... = ١٠. ما العدد المفقود؟ ثم اجمعيه مع ٢٠.", options:["٢٤","٢٦","٢٨","٣٠"], answer:0, skill:"القسمة على ٣ وعلى ٤" },
+  { id:9,  text:"➗ أي عدد عند قسمته على ٤ يكون الناتج ٨؟", options:["٢٤","٢٨","٣٢","٣٦"], answer:2, skill:"القسمة على ٣ وعلى ٤" },
+  { id:10, text:"➗ ٤٢ ÷ ٦ = ؟ ثم اضربي الناتج × ٣. ما النتيجة؟", options:["١٨","٢١","٢٤","٢٧"], answer:1, skill:"القسمة على ٦ وعلى ٧" },
+  { id:11, text:"➗ عدد عند قسمته على ٧ يساوي ٩. كم يساوي هذا العدد ناقص ١٠؟", options:["٥٣","٥٣.٥","٤٣","٦٣"], answer:0, skill:"القسمة على ٦ وعلى ٧" },
+  { id:12, text:"➗ ٦٣ ÷ ٩ = ؟ وكم يبقى لو طرحنا الناتج من ١٠؟", options:["٢","٣","٤","٧"], answer:1, skill:"القسمة على ٨ وعلى ٩" },
+
+  // --- Measurement (Ch.8) — harder ---
+  { id:13, text:"📏 طول قلم ١٢ سم وطول ممحاة ٤٥ مم. أيُّهما أطول؟ (١ سم = ١٠ مم)", options:["القلم أطول","الممحاة أطول","متساويان","لا يمكن المقارنة"], answer:0, skill:"المليمتر والسنتيمتر" },
+  { id:14, text:"📏 سارت دانه ٢ متر ثم سارت ٥٠ سم إضافية. كم المسافة الكلية بالسنتيمتر؟ (١ متر = ١٠٠ سم)", options:["٢٠٠ سم","٢٥٠ سم","٢٥ سم","٥٢ سم"], answer:1, skill:"وحدات الطول المترية" },
+  { id:15, text:"📐 مستطيل طوله ضعف عرضه، وعرضه ٣ سم. ما محيطه؟", options:["٩ سم","١٢ سم","١٨ سم","٢٤ سم"], answer:2, skill:"المحيط" },
+  { id:16, text:"📐 شكل خماسي منتظم محيطه ٢٥ سم. كم طول كل ضلع؟", options:["٤ سم","٥ سم","٦ سم","٧ سم"], answer:1, skill:"المحيط" },
+  { id:17, text:"🟦 مستطيل مساحته ٢٤ مربعاً وعرضه ٤ مربعات. ما طوله؟", options:["٤ مربعات","٥ مربعات","٦ مربعات","٨ مربعات"], answer:2, skill:"قياس المساحة" },
+  { id:18, text:"🟩 شكلان مساحة كل منهما ١٦ مربعاً: الأول مربع، والثاني مستطيل طوله ٨ مربعات. كم عرض المستطيل الثاني؟", options:["٢ مربعات","٤ مربعات","٦ مربعات","٨ مربعات"], answer:0, skill:"قياس المساحة" },
+  { id:19, text:"🥤 عبوتان: الأولى سعتها ٢ لتر، والثانية سعتها ١٥٠٠ ملليلتر. كم الفرق بينهما بالملليلتر؟ (١ لتر = ١٠٠٠ مل)", options:["٣٠٠ مل","٥٠٠ مل","٧٠٠ مل","١٥٠٠ مل"], answer:1, skill:"وحدات السعة المترية" },
+  { id:20, text:"🫙 إذا أردنا ملء حوض سمك كبير بالماء، فما أنسب أداة لقياس كمية الماء بسرعة؟", options:["ملعقة صغيرة","كوب صغير","دلو كبير","قطارة"], answer:2, skill:"وحدات السعة المترية" },
+  { id:21, text:"⚖️ كيس سكر كتلته ١ كيلوغرام، وكيس آخر كتلته ٧٥٠ غراماً. كم يزيد الكيس الأول عن الثاني بالغرام؟", options:["٢٥٠ غراماً","٢٥ غراماً","٧٥٠ غراماً","١٧٥٠ غراماً"], answer:0, skill:"وحدات الكتلة المترية" },
+  { id:22, text:"⚖️ إذا كانت كتلة كرة القدم أكبر من كتلة كرة التنس، وكتلة كرة السلة أكبر من كرة القدم، فأيُّ الكرات الأخف؟", options:["كرة القدم","كرة التنس","كرة السلة","كلها متساوية"], answer:1, skill:"وحدات الكتلة المترية" },
+  { id:23, text:"📦 صندوقان متساويان في الطول والعرض، لكن أحدهما أعلى من الآخر بوضوح. أيُّهما يتسع لكمية أكبر؟", options:["الأقصر","الأطول (الأعلى)","متساويان دائماً","لا يمكن معرفة ذلك"], answer:1, skill:"تقدير الحجم وقياسه" },
+  { id:24, text:"🕓 انتهى نشاط بدأ الساعة ١٠:١٥ واستمر نصف ساعة. متى انتهى النشاط؟", options:["١٠:٣٠","١٠:٤٥","١١:٠٠","١١:١٥"], answer:1, skill:"الزمن: قراءة الساعة" },
+
+  // --- Geometric shapes (Ch.9) — harder ---
+  { id:25, text:"📦 أيُّ المجسمات التالية له قاعدة واحدة فقط على شكل دائرة وينتهي برأس مدبب؟", options:["الأسطوانة","المخروط","الكرة","المكعب"], answer:1, skill:"المجسمات" },
+  { id:26, text:"🔷 شكل له ٤ أضلاع، ضلعان متوازيان فقط وغير متساويين، والضلعان الآخران مائلان. ما اسم هذا الشكل على الأغلب؟", options:["مربع","مستطيل","شبه منحرف","معين"], answer:2, skill:"الأشكال المستوية" },
+  { id:27, text:"⭐ في النمط: نجمة، قلب، قلب، نجمة، قلب، قلب، نجمة، قلب، __ . ما العنصر التالي؟", options:["نجمة","قلب","مربع","دائرة"], answer:1, skill:"الأنماط الهندسية" },
+
+  // --- Data (Ch.10) — harder ---
+  { id:28, text:"📊 في جدول صور: كل صورة كرة = ٢ كرات. ظهرت ٣ صور في الكرة الحمراء و٥ صور في الكرة الزرقاء. كم مجموع الكرات؟", options:["٨","١٠","١٤","١٦"], answer:3, skill:"التمثيل بالرموز" },
+  { id:29, text:"📊 في رسم بالأعمدة عن المواد المفضلة: العربية = ٦، الرياضيات = ٩، العلوم = ٣. ما الفرق بين أعلى مادة وأقل مادة؟", options:["٣","٥","٦","٩"], answer:2, skill:"تفسير التمثيل بالأعمدة" },
+
+  // --- Fractions (Ch.11) — harder ---
+  { id:30, text:"🍪 عند دانه ١٢ قطعة حلوى، ٤ منها بالفراولة. ما الكسر الذي يمثل قطع الفراولة، مبسطاً إلى أبسط صورة بالمقارنة مع ١/٣؟", options:["٤/١٢ = ١/٣","٤/١٢ = ١/٤","٤/١٢ = ١/٢","٤/١٢ ≠ أي كسر آخر"], answer:0, skill:"الكسور كأجزاء من مجموعة" }
+],
+
+// ================= SET 3 =================
+[
+  // --- Division (Ch.6-7) — harder ---
+  { id:1,  text:"➗ ما حاصل قسمة: ١٤ ÷ ٢ = ؟ ثم اضربي الناتج × ٤", options:["٢٤","٢٥","٢٦","٢٨"], answer:3, skill:"القسمة على ٢" },
+  { id:2,  text:"➗ ما حاصل قسمة: ٤٠ ÷ ٥ = ؟", options:["٦","٧","٨","٩"], answer:2, skill:"القسمة على ٥" },
+  { id:3,  text:"➗ عدد إذا قُسِّم على ١٠ كان الناتج ٦. كم يساوي هذا العدد زائد ١٥؟", options:["٦٠","٦٥","٧٥","٧٠"], answer:2, skill:"القسمة على ١٠" },
+  { id:4,  text:"➗ أي مما يلي يساوي صفراً؟", options:["٥ ÷ ١","١ ÷ ٥","٠ ÷ ٥","٥ ÷ ٥"], answer:2, skill:"القسمة مع الصفر وعلى الواحد" },
+  { id:5,  text:"➗ ٩ ÷ ١ = ؟ وكم يبقى لو طرحنا منه ٩؟", options:["٠","١","٩","١٨"], answer:0, skill:"القسمة مع الصفر وعلى الواحد" },
+  { id:6,  text:"🔗 عند دانه ٢٨ ورقة لتوزيعها على دفاتر، كل دفتر يحتاج ٧ ورقات. كم دفتراً يمكنها تجهيزه؟ (تحققي بالطرح المتكرر)", options:["٣ دفاتر","٤ دفاتر","٥ دفاتر","٦ دفاتر"], answer:1, skill:"علاقة القسمة بالطرح" },
+  { id:7,  text:"🔗 إذا كان × × ٨ = ٤٨، وكان ٤٨ ÷ ٨ = ٦، فما ناتج × + ١٠؟", options:["١٤","١٦","١٨","٢٠"], answer:1, skill:"علاقة القسمة بالضرب" },
+  { id:8,  text:"➗ ٢٨ ÷ ٤ = ؟ ثم اطرحي ٢ من الناتج. ما النتيجة؟", options:["٤","٥","٦","٧"], answer:1, skill:"القسمة على ٣ وعلى ٤" },
+  { id:9,  text:"➗ أي عدد عند قسمته على ٣ يكون الناتج ١٠؟", options:["٢٠","٢٥","٣٠","٣٥"], answer:2, skill:"القسمة على ٣ وعلى ٤" },
+  { id:10, text:"➗ ٤٩ ÷ ٧ = ؟ ثم اجمعي الناتج مع ١١. ما النتيجة؟", options:["١٧","١٨","١٩","٢٠"], answer:1, skill:"القسمة على ٦ وعلى ٧" },
+  { id:11, text:"➗ ٦٠ ÷ ٦ = ؟ وكم يساوي ضعف هذا الناتج؟", options:["١٨","٢٠","٢٢","٢٤"], answer:1, skill:"القسمة على ٦ وعلى ٧" },
+  { id:12, text:"➗ ٨١ ÷ ٩ = ؟ ثم اطرحي ٣ من الناتج. ما النتيجة؟", options:["٥","٦","٧","٨"], answer:1, skill:"القسمة على ٨ وعلى ٩" },
+
+  // --- Measurement (Ch.8) — harder ---
+  { id:13, text:"📏 شريطان: الأول طوله ٧ سم، والثاني طوله ٦٥ مم. أيُّهما أطول؟ (١ سم = ١٠ مم)", options:["الأول أطول","الثاني أطول","متساويان","لا يمكن المقارنة"], answer:1, skill:"المليمتر والسنتيمتر" },
+  { id:14, text:"📏 إذا كان طول الغرفة ٤ أمتار، فكم يساوي ذلك بالسنتيمتر؟ (١ متر = ١٠٠ سم)", options:["٤٠ سم","٤٠٠ سم","٤٠٠٠ سم","٤ سم"], answer:1, skill:"وحدات الطول المترية" },
+  { id:15, text:"📐 مستطيل محيطه ٢٢ سم وطوله ٧ سم. ما عرضه؟", options:["٣ سم","٤ سم","٥ سم","٨ سم"], answer:1, skill:"المحيط" },
+  { id:16, text:"📐 مربع طول ضلعه ٦ سم. كم يزيد محيطه عن محيط مثلث متساوي الأضلاع طول ضلعه ٦ سم؟", options:["٢ سم","٤ سم","٦ سم","٨ سم"], answer:1, skill:"المحيط" },
+  { id:17, text:"🟦 مستطيل طوله ٧ مربعات وعرضه ٢ مربع. كم تزيد مساحته عن مساحة مربع طول ضلعه ٣ مربعات؟", options:["٣ مربعات","٤ مربعات","٥ مربعات","٧ مربعات"], answer:1, skill:"قياس المساحة" },
+  { id:18, text:"🟩 شكل مساحته ٣٦ مربعاً وهو مربع الشكل. كم طول ضلعه؟", options:["٤ مربعات","٥ مربعات","٦ مربعات","٩ مربعات"], answer:2, skill:"قياس المساحة" },
+  { id:19, text:"🥛 عبوة سعتها ١ لتر، صُبَّ منها ٤٠٠ ملليلتر في كوب و٣٠٠ ملليلتر في كوب آخر. كم بقي في العبوة؟", options:["٢٠٠ مل","٣٠٠ مل","٤٠٠ مل","٧٠٠ مل"], answer:1, skill:"وحدات السعة المترية" },
+  { id:20, text:"🥄 أيُّ ترتيب صحيح من الأكبر سعةً إلى الأصغر؟", options:["برميل، دلو، ملعقة","ملعقة، دلو، برميل","دلو، برميل، ملعقة","ملعقة، برميل، دلو"], answer:0, skill:"وحدات السعة المترية" },
+  { id:21, text:"⚖️ صندوقان: الأول كتلته ٣ كيلوغرام، والثاني كتلته ٢٥٠٠ غرام. كم يزيد الأول عن الثاني بالغرام؟", options:["٥٠٠ غرام","٥٥٠ غراماً","٢٥٠٠ غرام","٣٠٠٠ غرام"], answer:0, skill:"وحدات الكتلة المترية" },
+  { id:22, text:"⚖️ إذا كانت بطيخة أثقل من دجاجة، ودجاجة أثقل من بيضة، فأيُّ ترتيب صحيح من الأخف إلى الأثقل؟", options:["بطيخة، دجاجة، بيضة","بيضة، دجاجة، بطيخة","دجاجة، بيضة، بطيخة","بطيخة، بيضة، دجاجة"], answer:1, skill:"وحدات الكتلة المترية" },
+  { id:23, text:"📦 لدينا مكعبان متماثلان في الحجم. إذا وُضع أحدهما فوق الآخر، فإن الشكل الناتج يكون حجمه:", options:["نصف حجم المكعب الواحد","مساوياً لحجم المكعب الواحد","ضعف حجم المكعب الواحد","لا يمكن معرفته"], answer:2, skill:"استكشف: الحجم" },
+  { id:24, text:"🕓 رحلة بدأت الساعة ١١:٠٠ صباحاً واستغرقت ساعة وربع. متى انتهت الرحلة؟", options:["١٢:٠٠","١٢:١٥","١٢:٣٠","١١:٤٥"], answer:1, skill:"الزمن: قراءة الساعة" },
+
+  // --- Geometric shapes (Ch.9) — harder ---
+  { id:25, text:"📦 أيُّ المجسمات التالية له قاعدتان دائريتان متطابقتان وسطح جانبي منحنٍ؟", options:["المخروط","الكرة","الأسطوانة","الهرم"], answer:2, skill:"المجسمات" },
+  { id:26, text:"🔷 شكل رباعي له ضلعان متوازيان وضلعان غير متوازيين، وأطوال أضلاعه ليست كلها متساوية. ما اسمه الأنسب؟", options:["مربع","معين","شبه منحرف","مستطيل"], answer:2, skill:"الأشكال المستوية" },
+  { id:27, text:"🦋 أيُّ الحروف العربية التالية له خط تماثل (يمكن طيّه فيتطابق نصفاه)؟", options:["حرف الألف (ا)","حرف الجيم (ج)","حرف السين (س)","حرف الفاء (ف)"], answer:0, skill:"التماثل" },
+
+  // --- Data (Ch.10) — harder ---
+  { id:28, text:"📊 في جدول صور: كل صورة قلم = ٣ أقلام. عدد الصور لمريم ٤ صور ولسارة ٢ صورة. كم مجموع الأقلام عندهما معاً؟", options:["٦","١٢","١٨","٢٤"], answer:2, skill:"التمثيل بالرموز" },
+  { id:29, text:"🎲 كيس به ٣ كرات حمراء و٣ كرات زرقاء فقط. ما احتمال سحب كرة حمراء؟", options:["مستحيل","أقل احتمالاً من الزرقاء","نفس احتمال الزرقاء","أكثر احتمالاً من الزرقاء"], answer:2, skill:"الاحتمال" },
+
+  // --- Fractions (Ch.11) — harder ---
+  { id:30, text:"🍕 رتبي الكسور التالية من الأصغر إلى الأكبر: ١/٢، ١/٤، ١/٣", options:["١/٢، ١/٣، ١/٤","١/٤، ١/٣، ١/٢","١/٣، ١/٤، ١/٢","١/٤، ١/٢، ١/٣"], answer:1, skill:"مقارنة الكسور وترتيبها" }
+]
+
+];
+
+// ===== PICK RANDOM SET =====
+const setIndex = Math.floor(Math.random() * questionSets.length);
+let questions = questionSets[setIndex];
+
+// ===== BUILD QUESTIONS =====
+function buildQuestions(idx) {
+  const arabicNums = ["١","٢","٣"];
+  document.getElementById("versionTag").textContent = "نسخة الاختبار: " + arabicNums[idx];
+
+  const section = document.getElementById("questionsSection");
+  section.innerHTML = "";
+  questions.forEach((q, qidx) => {
+    const card = document.createElement("div");
+    card.className = "q-card";
+    card.id = "card-" + qidx;
+
+    const badge = document.createElement("div");
+    badge.className = "q-badge";
+    badge.textContent = "سؤال " + q.id;
+
+    const qText = document.createElement("div");
+    qText.className = "q-text";
+    qText.textContent = q.text;
+
+    const optList = document.createElement("ul");
+    optList.className = "options-list";
+
+    q.options.forEach((opt, oIdx) => {
+      const li = document.createElement("li");
+      li.className = "option-item";
+      li.id = "opt-" + qidx + "-" + oIdx;
+
+      const radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = "q" + qidx;
+      radio.id = "r-" + qidx + "-" + oIdx;
+      radio.value = oIdx;
+      radio.addEventListener("change", () => updateProgress());
+
+      const lbl = document.createElement("label");
+      lbl.htmlFor = "r-" + qidx + "-" + oIdx;
+      lbl.textContent = opt;
+
+      li.appendChild(radio);
+      li.appendChild(lbl);
+      li.addEventListener("click", () => {
+        radio.checked = true;
+        updateProgress();
+      });
+
+      optList.appendChild(li);
+    });
+
+    const hint = document.createElement("div");
+    hint.className = "correct-answer-hint";
+    hint.id = "hint-" + qidx;
+
+    card.appendChild(badge);
+    card.appendChild(qText);
+    card.appendChild(optList);
+    card.appendChild(hint);
+    section.appendChild(card);
+  });
+}
+
+// ===== PROGRESS =====
+function updateProgress() {
+  let answered = 0;
+  questions.forEach((q, idx) => {
+    const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+    const card = document.getElementById("card-" + idx);
+    if (selected) {
+      answered++;
+      card.classList.add("answered");
+    } else {
+      card.classList.remove("answered");
+    }
+  });
+  const fill = document.getElementById("progressFill");
+  const text = document.getElementById("progressText");
+  const pct = (answered / questions.length) * 100;
+  fill.style.width = pct + "%";
+  text.textContent = answered + " / " + questions.length;
+}
+
+// ===== SUBMIT =====
+function submitTest() {
+  // Check all answered
+  let unanswered = [];
+  questions.forEach((q, idx) => {
+    const sel = document.querySelector(`input[name="q${idx}"]:checked`);
+    if (!sel) unanswered.push(idx + 1);
+  });
+
+  const alertEl = document.getElementById("alertMsg");
+  if (unanswered.length > 0) {
+    alertEl.classList.add("show");
+    alertEl.scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(() => alertEl.classList.remove("show"), 5000);
+    return;
+  }
+  alertEl.classList.remove("show");
+
+  // Score + collect wrong skills
+  let correct = 0;
+  const wrongSkillCounts = {};
+
+  questions.forEach((q, idx) => {
+    const sel = document.querySelector(`input[name="q${idx}"]:checked`);
+    const chosen = parseInt(sel.value);
+    const isCorrect = chosen === q.answer;
+    if (isCorrect) correct++;
+
+    const card = document.getElementById("card-" + idx);
+    card.classList.remove("answered");
+
+    // Disable all options
+    q.options.forEach((opt, oIdx) => {
+      const li = document.getElementById("opt-" + idx + "-" + oIdx);
+      const radio = document.getElementById("r-" + idx + "-" + oIdx);
+      li.classList.add("disabled");
+      radio.disabled = true;
+
+      if (oIdx === q.answer) {
+        li.classList.add("is-correct");
+      }
+      if (oIdx === chosen && !isCorrect) {
+        li.classList.add("is-wrong-choice");
+      }
+    });
+
+    if (isCorrect) {
+      card.classList.add("correct-card");
+    } else {
+      card.classList.add("wrong-card");
+      const hint = document.getElementById("hint-" + idx);
+      hint.textContent = "✅ الإجابة الصحيحة هي: " + q.options[q.answer];
+      hint.classList.add("show");
+
+      // tally skill for review report
+      wrongSkillCounts[q.skill] = (wrongSkillCounts[q.skill] || 0) + 1;
+    }
+  });
+
+  // Result
+  const name = document.getElementById("studentName").value.trim() || "دانه";
+  const pct = Math.round((correct / questions.length) * 100);
+
+  let grade = "", gradeClass = "", msg = "", stars = "";
+  if (pct >= 90) {
+    grade = "ممتازة يا بطلة! 🏆";
+    gradeClass = "grade-excellent";
+    msg = "يا دانه الحلوه! أنتِ نجمة الفصل، أداؤك رائع جداً! ⭐🌟💖 استمري هكذا دائماً!";
+    stars = "⭐⭐⭐";
+  } else if (pct >= 80) {
+    grade = "رائعة جداً! 🎉";
+    gradeClass = "grade-great";
+    msg = "أحسنتِ يا دانه! نتيجتك جميلة جداً وأنتِ طالبة مجتهدة 💕🌸 مزيداً من التميز!";
+    stars = "⭐⭐";
+  } else if (pct >= 70) {
+    grade = "جيدة جداً 😊";
+    gradeClass = "grade-good";
+    msg = "بارك الله فيكِ يا دانه! نتيجة جيدة وأنتِ تتحسنين في كل مرة 🌷💪 واصلي!";
+    stars = "⭐";
+  } else if (pct >= 60) {
+    grade = "تحتاجين مراجعة بسيطة 📚";
+    gradeClass = "grade-ok";
+    msg = "يا دانه، لا بأس! راجعي الدروس قليلاً وستصلين إلى نتيجة أعلى بإذن الله 🌸💛";
+    stars = "💫";
+  } else {
+    grade = "لا بأس، نراجع ونجرب مرة ثانية 💪";
+    gradeClass = "grade-retry";
+    msg = "يا دانه الحلوه، لا تيأسي! المراجعة تساعدك وستتحسنين في المرة القادمة إن شاء الله 💕🌼";
+    stars = "💖";
+  }
+
+  document.getElementById("resultStars").textContent = stars;
+  document.getElementById("resultName").textContent = "نتيجة الطالبة: " + name;
+  document.getElementById("resultScore").textContent = correct + " / " + questions.length;
+  document.getElementById("resultScoreSub").textContent = "عدد الإجابات الصحيحة من أصل " + questions.length + " سؤال";
+  document.getElementById("resultPercent").textContent = "النسبة المئوية: " + pct + "%";
+  document.getElementById("resultPercent").className = "result-percent " + gradeClass;
+  document.getElementById("resultMsg").innerHTML = "<strong>" + grade + "</strong><br/>" + msg;
+
+  // ===== REVIEW REPORT =====
+  const reviewContent = document.getElementById("reviewContent");
+  reviewContent.innerHTML = "";
+
+  const skillNames = Object.keys(wrongSkillCounts);
+  if (skillNames.length === 0) {
+    reviewContent.innerHTML = `
+      <div class="review-all-good">
+        🎉 ما شاء الله يا دانه! أجبتِ على جميع الأسئلة بشكل صحيح، لا توجد دروس تحتاج مراجعة. أنتِ متقنة لجميع المهارات! 💖
+      </div>`;
+  } else {
+    // Sort by most-missed first
+    skillNames.sort((a, b) => wrongSkillCounts[b] - wrongSkillCounts[a]);
+
+    const list = document.createElement("ul");
+    list.className = "review-list";
+
+    skillNames.forEach(skill => {
+      const li = document.createElement("li");
+      li.className = "review-item";
+
+      const nameSpan = document.createElement("span");
+      nameSpan.className = "review-item-name";
+      nameSpan.textContent = "📖 " + skill;
+
+      const countSpan = document.createElement("span");
+      countSpan.className = "review-item-count";
+      const count = wrongSkillCounts[skill];
+      countSpan.textContent = count + (count === 1 ? " سؤال خاطئ" : " أسئلة خاطئة");
+
+      li.appendChild(nameSpan);
+      li.appendChild(countSpan);
+      list.appendChild(li);
+    });
+
+    reviewContent.appendChild(list);
+
+    const footerMsg = document.createElement("div");
+    footerMsg.className = "review-footer-msg";
+    footerMsg.innerHTML = "💡 ننصح دانه بمراجعة الدروس أعلاه مع المعلمة أو ولي الأمر، ثم إعادة الاختبار للتأكد من الفهم الكامل. بالتوفيق يا بطلة! 🌸";
+    reviewContent.appendChild(footerMsg);
+  }
+
+  const box = document.getElementById("resultBox");
+  box.classList.add("show");
+  box.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+// ===== RESET =====
+function resetTest() {
+  document.getElementById("studentName").value = "دانه";
+  document.getElementById("resultBox").classList.remove("show");
+  document.getElementById("alertMsg").classList.remove("show");
+
+  // Pick a new random set so questions don't repeat in the same pattern
+  const newIndex = Math.floor(Math.random() * questionSets.length);
+  questions = questionSets[newIndex];
+
+  buildQuestions(newIndex);
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// ===== INIT =====
+buildQuestions(setIndex);
+updateProgress();
+</script>
+</body>
+</html>
