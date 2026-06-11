@@ -12,18 +12,20 @@
         }
 
         :root {
-            --primary: #f06292;
-            --secondary: #a374f7;
-            --dark: #3a1a2e;
-            --light: #fff0f6;
-            --gradient-1: linear-gradient(135deg, #f8a8cf 0%, #d89af0 50%, #f06292 100%);
-            --gradient-2: linear-gradient(135deg, #f06292, #a374f7);
-            --shadow: 0 8px 32px rgba(240, 98, 146, 0.2);
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --primary-light: #3b82f6;
+            --accent: #06b6d4;
+            --dark: #1f2937;
+            --light: #f3f4f6;
+            --gradient-1: linear-gradient(135deg, #2563eb 0%, #1e40af 50%, #06b6d4 100%);
+            --gradient-2: linear-gradient(135deg, #2563eb, #06b6d4);
+            --shadow: 0 8px 32px rgba(37, 99, 235, 0.15);
         }
 
         body {
             font-family: 'Tajawal', 'Arial', sans-serif;
-            background: linear-gradient(145deg, #fff0f6 0%, #f3eeff 40%, #ffe4f0 100%);
+            background: linear-gradient(145deg, #f0f9ff 0%, #f0f4f8 40%, #e0f2fe 100%);
             min-height: 100vh;
             color: var(--dark);
         }
@@ -35,7 +37,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(240, 98, 146, 0.25);
+            box-shadow: 0 10px 40px rgba(37, 99, 235, 0.2);
         }
 
         .hero::before {
@@ -68,7 +70,7 @@
             font-size: clamp(2rem, 8vw, 3.5rem);
             font-weight: 900;
             color: white;
-            text-shadow: 0 3px 15px rgba(180, 0, 90, 0.3);
+            text-shadow: 0 3px 15px rgba(30, 64, 175, 0.3);
             margin-bottom: 15px;
             letter-spacing: 1px;
         }
@@ -116,7 +118,7 @@
 
         .section-title p {
             font-size: 1.1rem;
-            color: #6d3b5a;
+            color: #4b5563;
             margin-top: 20px;
             font-weight: 500;
         }
@@ -135,7 +137,7 @@
             border-radius: 20px;
             padding: 30px;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(240, 98, 146, 0.12);
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.1);
             border: 2px solid transparent;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
@@ -155,7 +157,7 @@
 
         .card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(240, 98, 146, 0.2);
+            box-shadow: 0 12px 40px rgba(37, 99, 235, 0.2);
             border-color: var(--primary);
         }
 
@@ -174,7 +176,7 @@
 
         .card p {
             font-size: 0.95rem;
-            color: #6d3b5a;
+            color: #4b5563;
             margin-bottom: 20px;
             line-height: 1.6;
             font-weight: 500;
@@ -204,13 +206,13 @@
             transition: all 0.3s;
             border: none;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(240, 98, 146, 0.3);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
             letter-spacing: 0.5px;
         }
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(240, 98, 146, 0.4);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
         }
 
         .btn:active {
@@ -225,7 +227,7 @@
 
         .btn-secondary:hover {
             background: var(--light);
-            box-shadow: 0 6px 20px rgba(240, 98, 146, 0.2);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.2);
         }
 
         /* Stats Section */
@@ -249,13 +251,13 @@
         }
 
         .stat-item p {
-            color: #6d3b5a;
+            color: #4b5563;
             font-weight: 600;
         }
 
         /* Footer */
         footer {
-            background: linear-gradient(135deg, var(--dark) 0%, #5a3a6b 100%);
+            background: linear-gradient(135deg, var(--dark) 0%, #374151 100%);
             color: white;
             text-align: center;
             padding: 30px 20px;
@@ -326,7 +328,7 @@
     <!-- Hero Section -->
     <div class="hero">
         <div class="hero-content">
-            <span class="hero-emoji">🌸 📚 ⭐</span>
+            <span class="hero-emoji">📚 ⭐ 🎓</span>
             <h1>منصة MindAM360 التعليمية</h1>
             <p>اختبارات تفاعلية للطلاب والطالبات</p>
             <p style="font-size: 1rem; margin-top: 8px; opacity: 0.9;">اختبر معلوماتك وتطور مهاراتك معنا 💪</p>
@@ -432,9 +434,9 @@
     <!-- Footer -->
     <footer>
         <p>
-            <span class="emoji">🌸</span>
-            منصة MindAM360 التعليمية
             <span class="emoji">📚</span>
+            منصة MindAM360 التعليمية
+            <span class="emoji">⭐</span>
         </p>
         <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.9;">
             © 2026 جميع الحقوق محفوظة | صُممت بـ ❤️ لأجل التعليم الأفضل
