@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>اختبار رياضيات - الصف السادس الابتدائي - الفصل الدراسي الثاني v2</title>
+  <title>اختبار رياضيات - الصف السادس الابتدائي - الفصل الدراسي الثاني</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap');
     :root {
@@ -20,32 +20,499 @@
     .header-icon{font-size:44px;margin-bottom:8px;display:block;}
     .site-header h1{font-size:clamp(18px,4vw,26px);font-weight:900;letter-spacing:0.5px;line-height:1.4;}
     .site-header .subtitle{margin-top:6px;font-size:13px;opacity:0.82;font-weight:500;}
-    .version-badge{display:inline-block;background:rgba(255,255,255,0.22);border:1.5px solid rgba(255,255,255,0.45);padding:4px 16px;border-radius:50px;font-size:13px;font-weight:800;margin-top:10px;}
+    .version-badge{display:inline-block;background:rgba(255,255,255,0.22);border:1.5px solid rgba(255,255,255,0.45);padding:4px 16px;border-radius:50px;font-size:13px;font-weight:800;margin-top:10px;letter-spacing:1px;}
     .container{max-width:820px;margin:0 auto;padding:0 16px;}
     .student-box{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 28px;margin:24px 0 0;border:2px solid var(--border);}
     .student-box label{display:block;font-weight:700;font-size:15px;margin-bottom:8px;color:var(--primary);}
-    .student-box input{width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:10px;font-family:'Tajawal',sans-serif;font-size:15px;color:var(--text);background:var(--bg);outline:none;transition:all 0.2s;}
+    .student-box input{width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:10px;font-family:'Tajawal',sans-serif;font-size:15px;color:var(--text);background:var(--bg);outline:none;transition:border-color 0.2s;}
     .student-box input:focus{border-color:var(--primary-light);background:#fff;}
     .instructions{background:linear-gradient(135deg,#e8f5ee,#d0ede0);border-radius:var(--radius);padding:20px 24px;margin:18px 0 0;border-right:5px solid var(--primary);}
     .instructions h3{font-size:15px;font-weight:800;color:var(--primary);margin-bottom:10px;}
     .instructions ul{list-style:none;padding:0;}
     .instructions ul li{font-size:13.5px;color:var(--text);padding:4px 0;padding-right:20px;position:relative;font-weight:500;}
     .instructions ul li::before{content:'✓';position:absolute;right:0;color:var(--primary-light);font-weight:900;}
+    .progress-wrap{background:var(--card-bg);border-radius:50px;box-shadow:var(--shadow);padding:14px 20px;margin:18px 0 0;display:flex;align-items:center;gap:14px;border:2px solid var(--border);}
+    .progress-label{font-size:13px;font-weight:700;color:var(--primary);white-space:nowrap;min-width:130px;}
+    .progress-bar-bg{flex:1;background:#d9ece2;border-radius:50px;height:14px;overflow:hidden;}
+    .progress-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--primary),var(--primary-light));border-radius:50px;transition:width 0.4s ease;}
+    .progress-count{font-size:14px;font-weight:800;color:var(--primary);min-width:50px;text-align:center;}
+    .section-divider{display:flex;align-items:center;gap:10px;margin:30px 0 14px;}
+    .section-divider .line{flex:1;height:2px;background:var(--border);border-radius:2px;}
+    .difficulty-tag{padding:6px 18px;border-radius:50px;font-size:13px;font-weight:700;white-space:nowrap;}
+    .tag-easy{background:#d4edda;color:#155724;}
+    .tag-medium{background:#fff3cd;color:#856404;}
+    .tag-hard{background:#fde8e6;color:#7b1d1d;}
+    .question-card{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 24px 20px;margin-bottom:14px;border:2px solid transparent;transition:border-color 0.25s,box-shadow 0.25s;position:relative;overflow:hidden;}
+    .question-card::before{content:'';position:absolute;top:0;right:0;width:5px;height:100%;background:var(--primary-light);border-radius:0 var(--radius) var(--radius) 0;}
+    .question-card:hover{border-color:var(--border);box-shadow:0 6px 24px rgba(26,107,60,0.14);}
+    .question-card.answered{border-color:#b8ddc9;}
+    .question-card.correct-card{border-color:var(--correct);background:#f4fbf7;}
+    .question-card.wrong-card{border-color:var(--wrong);background:#fff7f6;}
+    .question-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;}
+    .q-number{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;font-size:13px;font-weight:800;padding:5px 11px;border-radius:50px;white-space:nowrap;flex-shrink:0;margin-top:2px;}
+    .q-text{font-size:15px;font-weight:700;line-height:1.6;flex:1;}
+    .options-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+    .option-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:10px;border:2px solid #e2ede7;cursor:pointer;transition:all 0.18s;font-size:14px;font-weight:500;background:#fafffe;}
+    .option-item:hover:not(.disabled){border-color:var(--primary-light);background:#edf7f2;}
+    .option-item input[type="radio"]{accent-color:var(--primary);width:17px;height:17px;flex-shrink:0;cursor:pointer;}
+    .option-item.selected-correct{background:var(--correct-bg);border-color:var(--correct);color:#0d4f2b;font-weight:700;}
+    .option-item.selected-wrong{background:var(--wrong-bg);border-color:var(--wrong);color:#7b1d1d;font-weight:700;}
+    .option-item.show-correct{background:var(--correct-bg);border-color:var(--correct);color:#0d4f2b;font-weight:700;}
+    .option-item.disabled{cursor:not-allowed;pointer-events:none;}
+    .correct-reveal{display:none;margin-top:12px;padding:10px 14px;background:#d4edda;border-radius:10px;border-right:4px solid var(--correct);font-size:13px;font-weight:700;color:#0d4f2b;}
+    .correct-reveal.visible{display:block;}
+    .result-box{display:none;background:var(--card-bg);border-radius:20px;box-shadow:0 8px 40px rgba(26,107,60,0.18);padding:32px 28px 28px;margin:26px 0 0;border:3px solid var(--primary-light);text-align:center;}
+    .result-box.visible{display:block;animation:popIn 0.5s cubic-bezier(0.22,1.5,0.5,1) both;}
+    @keyframes popIn{from{transform:scale(0.85);opacity:0;}to{transform:scale(1);opacity:1;}}
+    .result-trophy{font-size:52px;margin-bottom:10px;display:block;}
+    .result-name{font-size:17px;font-weight:700;color:var(--text-muted);margin-bottom:4px;}
+    .result-score{font-size:46px;font-weight:900;color:var(--primary);line-height:1.1;}
+    .result-of{font-size:18px;color:var(--text-muted);font-weight:600;margin-bottom:10px;}
+    .result-percent{display:inline-block;font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;padding:6px 22px;border-radius:50px;margin-bottom:14px;}
+    .result-grade{display:inline-block;font-size:20px;font-weight:900;padding:8px 26px;border-radius:50px;margin-bottom:14px;}
+    .grade-excellent{background:#d4edda;color:#0d4f2b;}
+    .grade-verygood{background:#cce5ff;color:#003f7f;}
+    .grade-good{background:#fff3cd;color:#856404;}
+    .grade-pass{background:#ffe5d0;color:#7c3d00;}
+    .grade-fail{background:#fde8e6;color:#7b1d1d;}
+    .result-msg{font-size:15px;color:var(--text-muted);font-weight:600;margin-top:8px;line-height:1.6;}
+    /* ─── REPORT BOX ─── */
+    .report-box{display:none;background:var(--card-bg);border-radius:20px;box-shadow:var(--shadow);padding:24px 28px;margin:16px 0 0;border:2px solid var(--border);}
+    .report-box.visible{display:block;animation:popIn 0.45s cubic-bezier(0.22,1.5,0.5,1) both;}
+    .report-title{font-size:17px;font-weight:800;color:var(--primary);margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:8px;}
+    .report-subtitle{font-size:13px;font-weight:800;margin:14px 0 8px;display:flex;align-items:center;gap:6px;}
+    .report-subtitle.bad{color:#c0392b;}
+    .report-subtitle.good{color:#1a6b3c;}
+    .report-list{display:flex;flex-direction:column;gap:8px;}
+    .report-item{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-radius:12px;gap:10px;}
+    .report-item.needs-review{background:#fff0ee;border:1.5px solid #e74c3c;}
+    .report-item.mastered{background:#f0fff5;border:1.5px solid #2e9e5e;}
+    .report-item-name{font-size:13.5px;font-weight:700;flex:1;}
+    .report-item-badge{font-size:12px;font-weight:800;padding:4px 12px;border-radius:50px;white-space:nowrap;flex-shrink:0;}
+    .badge-wrong{background:#fde8e6;color:#c0392b;}
+    .badge-right{background:#d4edda;color:#1a6b3c;}
+    .report-tip{background:#fffbe6;border:1.5px solid #f5a623;border-radius:12px;padding:12px 16px;margin-top:14px;font-size:13px;font-weight:600;color:#7a5000;line-height:1.6;}
+    /* ─── BUTTONS ─── */
+    .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:26px 0 0;}
+    .btn{padding:13px 30px;border-radius:50px;border:none;font-family:'Tajawal',sans-serif;font-size:15px;font-weight:800;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:7px;}
+    .btn:active{transform:scale(0.97);}
+    .btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;box-shadow:0 4px 14px rgba(26,107,60,0.35);}
+    .btn-primary:hover{box-shadow:0 6px 20px rgba(26,107,60,0.45);transform:translateY(-1px);}
+    .btn-reset{background:linear-gradient(135deg,#e84393,#c0247a);color:#fff;box-shadow:0 4px 14px rgba(192,36,122,0.30);}
+    .btn-reset:hover{box-shadow:0 6px 20px rgba(192,36,122,0.40);transform:translateY(-1px);}
+    .alert-box{display:none;background:#fff3cd;border:2px solid #ffc107;border-radius:12px;padding:14px 18px;margin-top:16px;font-size:14px;font-weight:700;color:#856404;text-align:center;}
+    .alert-box.visible{display:block;animation:shake 0.4s;}
+    @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+    @media(max-width:500px){.progress-wrap{flex-wrap:wrap;gap:8px;}.progress-label{min-width:unset;}.result-score{font-size:38px;}.question-card{padding:16px 14px;}.btn{padding:11px 22px;font-size:14px;}}
   </style>
 </head>
 <body>
 <header class="site-header">
   <span class="header-icon">📐</span>
-  <h1>اختبار رياضيات - الصف السادس</h1>
-  <p class="subtitle">هذا الملف تم دمجه مع الصفحة الرئيسية</p>
+  <h1>اختبار رياضيات<br>الصف السادس الابتدائي — الفصل الدراسي الثاني</h1>
+  <p class="subtitle">المنهج السعودي &nbsp;|&nbsp; 30 سؤالاً &nbsp;|&nbsp; اختيار من متعدد</p>
+  <div class="version-badge" id="versionBadge"></div>
 </header>
 <div class="container">
   <div class="student-box">
-    <h2>تم دمج هذا الاختبار مع الصفحة الرئيسية الجديدة</h2>
-    <p style="margin-top: 20px; font-size: 16px; text-align: center;">
-      🏠 <a href="index.html" style="color: var(--primary); text-decoration: none; font-weight: bold;">اذهب إلى الصفحة الرئيسية</a>
-    </p>
+    <label for="studentName">🎒 اسم الطالب / الطالبة</label>
+    <input type="text" id="studentName" placeholder="اكتب اسمك هنا..." maxlength="60" />
+  </div>
+  <div class="instructions">
+    <h3>📋 تعليمات الاختبار</h3>
+    <ul>
+      <li>اقرأ كل سؤال بعناية قبل الإجابة.</li>
+      <li>اختر إجابة واحدة فقط لكل سؤال.</li>
+      <li>أجب على جميع الأسئلة قبل الضغط على زر "عرض النتيجة".</li>
+      <li>يمكنك تغيير إجابتك في أي وقت قبل عرض النتيجة.</li>
+      <li>بعد عرض النتيجة، اضغط "إعادة الاختبار" للبدء من جديد.</li>
+    </ul>
+  </div>
+  <div class="progress-wrap">
+    <span class="progress-label">📊 تقدم الإجابات:</span>
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+    <span class="progress-count" id="progressCount">0 / 30</span>
+  </div>
+  <div class="result-box" id="resultBox">
+    <span class="result-trophy" id="resultTrophy">🏆</span>
+    <p class="result-name" id="resultName"></p>
+    <div class="result-score" id="resultScore"></div>
+    <div class="result-of">من أصل 30 سؤالاً</div>
+    <div class="result-percent" id="resultPercent"></div>
+    <div class="result-grade" id="resultGrade"></div>
+    <p class="result-msg" id="resultMsg"></p>
+  </div>
+  <div class="report-box" id="reportBox"></div>
+  <div id="questionsContainer"></div>
+  <div class="alert-box" id="alertBox">⚠️ لم تجب على بعض الأسئلة بعد! يُرجى الإجابة على جميع الأسئلة أولاً.</div>
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="showResult()">✅ عرض النتيجة</button>
+    <button class="btn btn-reset" onclick="resetTest()">🔄 إعادة الاختبار</button>
   </div>
 </div>
+<script>
+/* ══════════════════════════════════════════════════════
+   أسماء الموضوعات
+══════════════════════════════════════════════════════ */
+const topicNames = {
+  'ratio'      : 'النسبة والتناسب',
+  'percent'    : 'النسبة المئوية',
+  'fractions'  : 'الكسور الاعتيادية والعشرية',
+  'frac-ops'   : 'العمليات على الكسور',
+  'equations'  : 'المعادلات البسيطة',
+  'geometry'   : 'الهندسة والقياس',
+  'area'       : 'المساحة والمحيط والحجم',
+  'angles'     : 'الزوايا والمضلعات',
+  'graphs'     : 'التمثيل البياني وقراءة البيانات',
+  'probability': 'الاحتمال',
+  'gcd-lcm'    : 'القاسم المشترك الأكبر والمضاعف المشترك الأصغر وتبسيط الكسور'
+};
+
+/* ══════════════════════════════════════════════════════
+   النسخ الثلاث من الأسئلة
+══════════════════════════════════════════════════════ */
+const versions = [
+
+  /* ────────────────────────────────── النسخة أ ── */
+  [
+    /* سهل */
+    {text:'إذا كانت النسبة بين عدد الطلاب وعدد الطالبات في فصل هي 3:2، وعدد الطلاب 15، فكم عدد الطالبات؟',options:['8 طالبات','10 طالبات','12 طالبة','6 طالبات'],correctIndex:1,difficulty:'easy',topic:'ratio'},
+    {text:'ما النسبة المئوية للعدد 25 من 100؟',options:['20%','30%','25%','15%'],correctIndex:2,difficulty:'easy',topic:'percent'},
+    {text:'أيُّ الكسور التالية مكافئ للكسر ½؟',options:['2/5','3/6','4/9','2/3'],correctIndex:1,difficulty:'easy',topic:'fractions'},
+    {text:'ما النسبة المئوية للكسر العشري 0.5؟',options:['5%','50%','0.5%','500%'],correctIndex:1,difficulty:'easy',topic:'fractions'},
+    {text:'إذا كان س + 5 = 12، فما قيمة س؟',options:['5','6','7','8'],correctIndex:2,difficulty:'easy',topic:'equations'},
+    {text:'كم درجة مجموع زوايا المثلث الواحد؟',options:['90°','180°','270°','360°'],correctIndex:1,difficulty:'easy',topic:'angles'},
+    {text:'ما محيط مربع طول ضلعه 5 سم؟',options:['10 سم','15 سم','20 سم','25 سم'],correctIndex:2,difficulty:'easy',topic:'area'},
+    {text:'ما مساحة مستطيل طوله 8 سم وعرضه 3 سم؟',options:['11 سم²','22 سم²','24 سم²','20 سم²'],correctIndex:2,difficulty:'easy',topic:'area'},
+    {text:'ما ناتج جمع الكسرين: ³⁄₅ + ¹⁄₅ ؟',options:['⁴⁄₅','⁴⁄₁₀','³⁄₁₀','²⁄₅'],correctIndex:0,difficulty:'easy',topic:'frac-ops'},
+    {text:'الزاوية التي تساوي 90 درجة تُسمى:',options:['زاوية حادة','زاوية منفرجة','زاوية قائمة','زاوية مستقيمة'],correctIndex:2,difficulty:'easy',topic:'angles'},
+    /* متوسط */
+    {text:'إذا كانت تكلفة 4 أقلام 12 ريالاً، فما تكلفة 7 أقلام بنفس السعر؟',options:['18 ريالاً','21 ريالاً','24 ريالاً','28 ريالاً'],correctIndex:1,difficulty:'medium',topic:'ratio'},
+    {text:'اشترى أحمد كتاباً بعد خصم 20% ودفع 40 ريالاً. ما السعر الأصلي للكتاب؟',options:['48 ريالاً','50 ريالاً','45 ريالاً','52 ريالاً'],correctIndex:1,difficulty:'medium',topic:'percent'},
+    {text:'ما ناتج: 3.5 × 2.4 ؟',options:['7.4','8.4','8.2','7.2'],correctIndex:1,difficulty:'medium',topic:'fractions'},
+    {text:'ما ناتج: ³⁄₄ × ⁸⁄₉ بأبسط صورة؟',options:['¹¹⁄₁₃','²⁴⁄₃₆','²⁄₃','³⁄₈'],correctIndex:2,difficulty:'medium',topic:'frac-ops'},
+    {text:'إذا كان 3س − 4 = 11، فما قيمة س؟',options:['3','4','5','6'],correctIndex:2,difficulty:'medium',topic:'equations'},
+    {text:'ما مساحة مثلث قاعدته 10 سم وارتفاعه 6 سم؟',options:['60 سم²','30 سم²','16 سم²','32 سم²'],correctIndex:1,difficulty:'medium',topic:'area'},
+    {text:'ما حجم متوازي مستطيلات أبعاده 4 سم × 3 سم × 5 سم؟',options:['12 سم³','60 سم³','47 سم³','24 سم³'],correctIndex:1,difficulty:'medium',topic:'area'},
+    {text:'كم درجة مجموع الزوايا الداخلية للمربع؟',options:['180°','270°','360°','90°'],correctIndex:2,difficulty:'medium',topic:'angles'},
+    {text:'في خريطة، 1 سم يمثل 50 كم في الواقع. ما المسافة الحقيقية التي تمثلها 7 سم على الخريطة؟',options:['250 كم','300 كم','350 كم','400 كم'],correctIndex:2,difficulty:'medium',topic:'ratio'},
+    {text:'درجات 5 طلاب هي: 70، 80، 90، 60، 75. ما متوسط درجاتهم؟',options:['73','75','78','80'],correctIndex:1,difficulty:'medium',topic:'graphs'},
+    {text:'ما ناتج: ⁵⁄₆ ÷ ⁵⁄₃ بأبسط صورة؟',options:['½','²⁵⁄₁₈','²⁄₃','⅓'],correctIndex:0,difficulty:'medium',topic:'frac-ops'},
+    {text:'عدد طلاب فصل 40 طالباً، وحضر منهم 35 فقط. ما نسبة الغياب؟',options:['10%','12.5%','15%','87.5%'],correctIndex:1,difficulty:'medium',topic:'percent'},
+    /* تفكير */
+    {text:'سيارة تقطع 210 كم في 3 ساعات بسرعة ثابتة. كم ساعة تحتاج لقطع 350 كم بنفس السرعة؟',options:['4 ساعات','5 ساعات','6 ساعات','7 ساعات'],correctIndex:1,difficulty:'hard',topic:'ratio'},
+    {text:'ارتفع سعر كتاب من 30 ريالاً إلى 36 ريالاً. ما نسبة الزيادة؟',options:['15%','18%','20%','25%'],correctIndex:2,difficulty:'hard',topic:'percent'},
+    {text:'إذا كان 2(س + 3) = 14، فما قيمة س؟',options:['2','3','4','5'],correctIndex:2,difficulty:'hard',topic:'equations'},
+    {text:'غرفة مستطيلة طولها 6 م وعرضها 4 م. تريد تبليطها ببلاطات مربعة طول ضلعها 50 سم. كم بلاطة تحتاج؟',options:['96 بلاطة','120 بلاطة','192 بلاطة','240 بلاطة'],correctIndex:0,difficulty:'hard',topic:'area'},
+    {text:'كيس يحتوي على 3 كرات حمراء و4 كرات زرقاء و3 كرات خضراء. ما احتمال سحب كرة زرقاء عشوائياً؟',options:['³⁄₁₀','⁴⁄₁₀','⁷⁄₁₀','⅓'],correctIndex:1,difficulty:'hard',topic:'probability'},
+    {text:'باع تاجر ³⁄₅ من بضاعته صباحاً، ثم باع ¼ من الباقي بعد الظهر. ما نسبة ما باعه بعد الظهر من البضاعة الأصلية؟',options:['⅕','¹⁄₁₀','³⁄₂₀','²⁄₅'],correctIndex:1,difficulty:'hard',topic:'frac-ops'},
+    {text:'رُميَ حجر نرد مرة واحدة. ما احتمال ظهور عدد زوجي أو عدد أكبر من 4؟',options:['⅙','²⁄₆','⁴⁄₆','⁵⁄₆'],correctIndex:2,difficulty:'hard',topic:'probability'},
+    {text:'مستطيل محيطه 36 سم، وطوله ضعف عرضه. ما مساحته؟',options:['72 سم²','54 سم²','81 سم²','60 سم²'],correctIndex:0,difficulty:'hard',topic:'area'}
+  ],
+
+  /* ────────────────────────────────── النسخة ب ── */
+  [
+    /* سهل */
+    {text:'إذا كانت النسبة بين طول مستطيل وعرضه 5:3، وطوله 20 سم، فما عرضه؟',options:['8 سم','10 سم','12 سم','15 سم'],correctIndex:2,difficulty:'easy',topic:'ratio'},
+    {text:'ما 10% من العدد 80؟',options:['4','6','8','10'],correctIndex:2,difficulty:'easy',topic:'percent'},
+    {text:'أيُّ الكسور التالية مكافئ للكسر ²⁄₃؟',options:['3/5','4/6','3/9','5/8'],correctIndex:1,difficulty:'easy',topic:'fractions'},
+    {text:'ما النسبة المئوية للكسر العشري 0.75؟',options:['7.5%','25%','75%','750%'],correctIndex:2,difficulty:'easy',topic:'fractions'},
+    {text:'إذا كان 8 − س = 3، فما قيمة س؟',options:['3','4','5','6'],correctIndex:2,difficulty:'easy',topic:'equations'},
+    {text:'الزاوية الأكبر من 90° والأصغر من 180° تُسمى:',options:['زاوية حادة','زاوية منفرجة','زاوية قائمة','زاوية مستقيمة'],correctIndex:1,difficulty:'easy',topic:'angles'},
+    {text:'ما محيط مستطيل طوله 6 سم وعرضه 4 سم؟',options:['10 سم','20 سم','24 سم','48 سم'],correctIndex:1,difficulty:'easy',topic:'area'},
+    {text:'ما مساحة مربع طول ضلعه 7 سم؟',options:['14 سم²','28 سم²','42 سم²','49 سم²'],correctIndex:3,difficulty:'easy',topic:'area'},
+    {text:'ما ناتج: ²⁄₇ + ³⁄₇ ؟',options:['5/14','1/7','5/7','6/7'],correctIndex:2,difficulty:'easy',topic:'frac-ops'},
+    {text:'كم عدد أضلاع المثلث؟',options:['2','3','4','5'],correctIndex:1,difficulty:'easy',topic:'geometry'},
+    /* متوسط */
+    {text:'إذا كان سعر 5 كيلو تفاح 15 ريالاً، فما سعر 8 كيلو بنفس السعر؟',options:['18 ريالاً','20 ريالاً','24 ريالاً','30 ريالاً'],correctIndex:2,difficulty:'medium',topic:'ratio'},
+    {text:'حصل طالب على 42 درجة من أصل 60. ما نسبته المئوية؟',options:['60%','65%','70%','75%'],correctIndex:2,difficulty:'medium',topic:'percent'},
+    {text:'ما ناتج: 4.2 ÷ 0.6 ؟',options:['0.7','7','70','0.07'],correctIndex:1,difficulty:'medium',topic:'fractions'},
+    {text:'ما ناتج: ⁵⁄₈ − ¼ بأبسط صورة؟',options:['4/8','1/4','3/8','1/2'],correctIndex:2,difficulty:'medium',topic:'frac-ops'},
+    {text:'إذا كان 4س + 6 = 22، فما قيمة س؟',options:['2','3','4','5'],correctIndex:2,difficulty:'medium',topic:'equations'},
+    {text:'ما مساحة متوازي أضلاع قاعدته 9 سم وارتفاعه 5 سم؟',options:['14 سم²','27 سم²','45 سم²','90 سم²'],correctIndex:2,difficulty:'medium',topic:'area'},
+    {text:'ما حجم مكعب طول ضلعه 4 سم؟',options:['16 سم³','48 سم³','64 سم³','96 سم³'],correctIndex:2,difficulty:'medium',topic:'area'},
+    {text:'في مثلث، زاويتان هما 70° و60°. ما مقدار الزاوية الثالثة؟',options:['40°','50°','60°','70°'],correctIndex:1,difficulty:'medium',topic:'angles'},
+    {text:'مقياس رسم خريطة 1:200، إذا كان طول غرفة على المخطط 3 سم، فما طولها الحقيقي بالمتر؟',options:['3 م','6 م','60 م','600 م'],correctIndex:1,difficulty:'medium',topic:'ratio'},
+    {text:'القيم التالية: 5، 8، 6، 7، 4. ما المدى (الفرق بين أكبر قيمة وأصغرها)؟',options:['2','3','4','5'],correctIndex:2,difficulty:'medium',topic:'graphs'},
+    {text:'ما ناتج: ⁷⁄₈ ÷ ⁷⁄₄ بأبسط صورة؟',options:['¼','⅓','½','¾'],correctIndex:2,difficulty:'medium',topic:'frac-ops'},
+    {text:'سعر جهاز 500 ريال، وخُفِّض بنسبة 15%. ما سعره الجديد؟',options:['400 ريال','425 ريال','450 ريال','475 ريال'],correctIndex:1,difficulty:'medium',topic:'percent'},
+    /* تفكير */
+    {text:'يستطيع 6 عمال إنهاء عمل في 8 أيام. كم يوماً يحتاج 4 عمال لإنهاء نفس العمل؟',options:['6 أيام','9 أيام','12 يوماً','16 يوماً'],correctIndex:2,difficulty:'hard',topic:'ratio'},
+    {text:'بعد زيادة 25% أصبح سعر منتج 250 ريالاً. ما سعره الأصلي؟',options:['175 ريالاً','185 ريالاً','200 ريالاً','210 ريالاً'],correctIndex:2,difficulty:'hard',topic:'percent'},
+    {text:'إذا كان 3(2س − 1) = 15، فما قيمة س؟',options:['2','3','4','5'],correctIndex:1,difficulty:'hard',topic:'equations'},
+    {text:'أرض مستطيلة محيطها 48 م، وعرضها نصف طولها. ما مساحتها؟',options:['96 م²','112 م²','128 م²','144 م²'],correctIndex:2,difficulty:'hard',topic:'area'},
+    {text:'صندوق يحتوي على 5 كرات حمراء و3 كرات صفراء و2 كرات بيضاء. ما احتمال سحب كرة غير حمراء؟',options:['½','³⁄₁₀','²⁄₅','⁷⁄₁₀'],correctIndex:0,difficulty:'hard',topic:'probability'},
+    {text:'ثلاثة أشخاص يتقاسمون أرباحاً: الأول يأخذ ½ والثاني يأخذ ⅓. كم نسبة ما يأخذه الثالث؟',options:['¼','⅕','⅙','⅛'],correctIndex:2,difficulty:'hard',topic:'frac-ops'},
+    {text:'رُميَت قطعة نقود مرتين. ما احتمال ظهور "صورة" في المرتين؟',options:['⅛','¼','⅓','½'],correctIndex:1,difficulty:'hard',topic:'probability'},
+    {text:'في مثلث قائم الزاوية، إحدى الزاويتين الحادتين تساوي 35°. ما مقدار الزاوية الحادة الأخرى؟',options:['45°','55°','65°','75°'],correctIndex:1,difficulty:'hard',topic:'angles'}
+  ],
+
+  /* ────────────────────────────────── النسخة ج (مطابقة لفصول 4-10 للمنهج 1447) ── */
+  [
+    /* سهل */
+    {text:'ما القاسم المشترك الأكبر للعددين 12 و18؟',options:['2','3','6','12'],correctIndex:2,difficulty:'easy',topic:'gcd-lcm'},
+    {text:'ما أبسط صورة للكسر ⁸⁄₁₂؟',options:['²⁄₃','⁴⁄₆','½','⁸⁄₁₂'],correctIndex:0,difficulty:'easy',topic:'gcd-lcm'},
+    {text:'أيُّ الأعداد التالية يُعدّ عدداً كسرياً (مختلطاً)؟',options:['¾','1½','⁷⁄₂','⁵⁄₅'],correctIndex:1,difficulty:'easy',topic:'fractions'},
+    {text:'ما النسبة المئوية المكافئة للكسر العشري 0.7؟',options:['7%','70%','0.7%','700%'],correctIndex:1,difficulty:'easy',topic:'percent'},
+    {text:'إذا تقاطع مستقيمان، فإن كل زاويتين متقابلتين بالرأس تكونان:',options:['متساويتين','متكاملتين','متتامتين','مختلفتين دائماً'],correctIndex:0,difficulty:'easy',topic:'angles'},
+    {text:'النسبة 4 إلى 8 في أبسط صورة هي:',options:['1 : 2','2 : 4','4 : 8','1 : 4'],correctIndex:0,difficulty:'easy',topic:'ratio'},
+    {text:'عند تقريب الكسر ⁷⁄₈ لأقرب نصف، يكون الناتج:',options:['0','½','1','2'],correctIndex:2,difficulty:'easy',topic:'frac-ops'},
+    {text:'القانون الصحيح لحساب محيط الدائرة هو:',options:['نق × نق × π','2 × π × نق','π × القطر²','نق × 4'],correctIndex:1,difficulty:'easy',topic:'area'},
+    {text:'ما 10% من العدد 90؟',options:['9','90','0.9','900'],correctIndex:0,difficulty:'easy',topic:'percent'},
+    {text:'عند رمي قطعة نقود مرة واحدة، كم عدد النواتج الممكنة في الفضاء العيني؟',options:['1','2','3','4'],correctIndex:1,difficulty:'easy',topic:'probability'},
+    /* متوسط */
+    {text:'ما المضاعف المشترك الأصغر للعددين 4 و6؟',options:['8','12','24','2'],correctIndex:1,difficulty:'medium',topic:'gcd-lcm'},
+    {text:'رتّب الكسور التالية تصاعدياً: ½ ، ¼ ، ¾',options:['¼ ، ½ ، ¾','¾ ، ½ ، ¼','½ ، ¼ ، ¾','¼ ، ¾ ، ½'],correctIndex:0,difficulty:'medium',topic:'fractions'},
+    {text:'ما ناتج: 0.6 ÷ 0.2 ؟',options:['0.3','3','0.12','1.2'],correctIndex:1,difficulty:'medium',topic:'frac-ops'},
+    {text:'ما ناتج: 2¾ + 1½ ؟',options:['4¼','3¼','4¾','3¾'],correctIndex:0,difficulty:'medium',topic:'frac-ops'},
+    {text:'ما ناتج: 5⅓ − 2⅔ ؟',options:['2⅔','3⅓','2⅓','3⅔'],correctIndex:0,difficulty:'medium',topic:'frac-ops'},
+    {text:'ما ناتج: ¾ × ²⁄₅ بأبسط صورة؟',options:['⁶⁄₂₀','³⁄₁₀','⁸⁄₁₅','²⁄₅'],correctIndex:1,difficulty:'medium',topic:'frac-ops'},
+    {text:'ما ناتج: 3 ÷ ¼ ؟',options:['0.75','⁴⁄₃','12','¾'],correctIndex:2,difficulty:'medium',topic:'frac-ops'},
+    {text:'في جدول نسب، إذا كانت النسبة 3:5 وكان الحد الأول 9، فما الحد الثاني المقابل؟',options:['12','15','18','20'],correctIndex:1,difficulty:'medium',topic:'ratio'},
+    {text:'حل التناسب: ²⁄₅ = س⁄₂₀ ، فما قيمة س؟',options:['4','8','10','40'],correctIndex:1,difficulty:'medium',topic:'ratio'},
+    {text:'اكتب الكسر ¾ في صورة نسبة مئوية:',options:['34%','75%','43%','7.5%'],correctIndex:1,difficulty:'medium',topic:'percent'},
+    {text:'ما مجموع الزوايا الداخلية للشكل الخماسي (5 أضلاع)؟',options:['360°','540°','720°','180°'],correctIndex:1,difficulty:'medium',topic:'angles'},
+    {text:'ما مساحة متوازي أضلاع قاعدته 12 سم وارتفاعه 5 سم؟',options:['17 سم²','30 سم²','60 سم²','120 سم²'],correctIndex:2,difficulty:'medium',topic:'area'},
+    /* تفكير */
+    {text:'باستعمال مبدأ العد الأساسي: لدى أحمد 4 قمصان و3 بناطيل، فبكم طريقة يمكنه اختيار قميص وبنطال معاً؟',options:['7','12','1','34'],correctIndex:1,difficulty:'hard',topic:'probability'},
+    {text:'عند رمي مكعب أرقام (1-6) مرة واحدة، ما احتمال ظهور عدد زوجي؟',options:['⅙','⅓','½','²⁄₃'],correctIndex:2,difficulty:'hard',topic:'probability'},
+    {text:'لاحظ النمط: 2، 4، 8، 16، ... فما العدد التالي؟',options:['24','32','18','20'],correctIndex:1,difficulty:'hard',topic:'ratio'},
+    {text:'حل التناسب: ⁶⁄ₓ = ¹⁸⁄₂₇ ، فما قيمة س؟',options:['6','9','12','18'],correctIndex:1,difficulty:'hard',topic:'ratio'},
+    {text:'ما محيط دائرة قطرها 14 سم؟ (استعمل π ≈ ²²⁄₇)',options:['22 سم','44 سم','88 سم','154 سم'],correctIndex:1,difficulty:'hard',topic:'area'},
+    {text:'ما حجم منشور رباعي (متوازي مستطيلات) أبعاده 5سم × 4سم × 3سم؟',options:['12 سم³','60 سم³','72 سم³','120 سم³'],correctIndex:1,difficulty:'hard',topic:'area'},
+    {text:'ما المساحة الكلية لسطح مكعب طول ضلعه 3 سم؟ (6 أوجه متطابقة)',options:['9 سم²','18 سم²','36 سم²','54 سم²'],correctIndex:3,difficulty:'hard',topic:'area'},
+    {text:'منشور رباعي قائم، محيط قاعدته 20 سم وارتفاعه 10 سم. ما مساحة سطحه الجانبي؟ (المساحة الجانبية = محيط القاعدة × الارتفاع)',options:['200 سم²','100 سم²','240 سم²','40 سم²'],correctIndex:0,difficulty:'hard',topic:'area'}
+  ]
+];
+
+/* ══════════════════════════════════════
+   اختيار النسخة عشوائياً
+══════════════════════════════════════ */
+const versionIdx   = Math.floor(Math.random() * 3);
+const versionLabel = ['أ', 'ب', 'ج'][versionIdx];
+const questions    = versions[versionIdx];
+
+document.getElementById('versionBadge').textContent = 'النسخة ' + versionLabel;
+
+/* ══════════════════════════════════════
+   بناء واجهة الأسئلة
+══════════════════════════════════════ */
+const container = document.getElementById('questionsContainer');
+const sections = [
+  {label:'🟢 الأسئلة السهلة (1 – 10)',   tagClass:'tag-easy',   range:[0,9]},
+  {label:'🟡 الأسئلة المتوسطة (11 – 22)', tagClass:'tag-medium', range:[10,21]},
+  {label:'🔴 أسئلة التفكير (23 – 30)',     tagClass:'tag-hard',   range:[22,29]}
+];
+
+sections.forEach(sec => {
+  const div = document.createElement('div');
+  div.className = 'section-divider';
+  div.innerHTML = `<div class="line"></div><span class="difficulty-tag ${sec.tagClass}">${sec.label}</span><div class="line"></div>`;
+  container.appendChild(div);
+  for (let i = sec.range[0]; i <= sec.range[1]; i++) container.appendChild(buildCard(i));
+});
+
+function buildCard(idx) {
+  const q = questions[idx];
+  const card = document.createElement('div');
+  card.className = 'question-card';
+  card.id = `card-${idx}`;
+  const optionsHTML = q.options.map((opt, oi) =>
+    `<li class="option-item" id="opt-${idx}-${oi}">
+       <input type="radio" name="q${idx}" id="r-${idx}-${oi}" value="${oi}" onchange="onAnswer(${idx})">
+       <label for="r-${idx}-${oi}" style="cursor:pointer;flex:1">${opt}</label>
+     </li>`).join('');
+  card.innerHTML = `
+    <div class="question-header">
+      <span class="q-number">سؤال ${idx + 1}</span>
+      <p class="q-text">${q.text}</p>
+    </div>
+    <ul class="options-list">${optionsHTML}</ul>
+    <div class="correct-reveal" id="reveal-${idx}">✅ الإجابة الصحيحة: ${q.options[q.correctIndex]}</div>`;
+  return card;
+}
+
+/* ══════════════════════════════════════
+   شريط التقدم
+══════════════════════════════════════ */
+function onAnswer(idx) {
+  document.getElementById(`card-${idx}`).classList.add('answered');
+  updateProgress();
+  hideAlert();
+}
+function countAnswered() {
+  let c = 0;
+  questions.forEach((_, i) => { if (document.querySelector(`input[name="q${i}"]:checked`)) c++; });
+  return c;
+}
+function updateProgress() {
+  const a = countAnswered(), t = questions.length, p = (a / t) * 100;
+  document.getElementById('progressFill').style.width = p + '%';
+  document.getElementById('progressCount').textContent = `${a} / ${t}`;
+}
+
+/* ══════════════════════════════════════
+   عرض النتيجة
+══════════════════════════════════════ */
+let submitted = false;
+
+function showResult() {
+  if (countAnswered() < questions.length) { showAlert(); return; }
+  hideAlert();
+  submitted = true;
+
+  const name = document.getElementById('studentName').value.trim() || 'الطالب';
+  let correct = 0;
+  const wrongTopics = [];
+
+  questions.forEach((q, i) => {
+    const chosen = parseInt(document.querySelector(`input[name="q${i}"]:checked`).value);
+    const card   = document.getElementById(`card-${i}`);
+    const reveal = document.getElementById(`reveal-${i}`);
+
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(r => {
+      r.disabled = true;
+      r.closest('.option-item').classList.add('disabled');
+    });
+
+    if (chosen === q.correctIndex) {
+      correct++;
+      card.classList.add('correct-card');
+      document.getElementById(`opt-${i}-${chosen}`).classList.add('selected-correct');
+    } else {
+      card.classList.add('wrong-card');
+      document.getElementById(`opt-${i}-${chosen}`).classList.add('selected-wrong');
+      document.getElementById(`opt-${i}-${q.correctIndex}`).classList.add('show-correct');
+      reveal.classList.add('visible');
+      wrongTopics.push(q.topic);
+    }
+  });
+
+  const pct   = Math.round((correct / questions.length) * 100);
+  const grade = getGrade(pct);
+
+  document.getElementById('resultTrophy').textContent  = grade.trophy;
+  document.getElementById('resultName').textContent     = `👤 ${name}`;
+  document.getElementById('resultScore').textContent    = correct;
+  document.getElementById('resultPercent').textContent  = `النسبة المئوية: ${pct}%`;
+  const gradeEl = document.getElementById('resultGrade');
+  gradeEl.textContent = grade.label;
+  gradeEl.className   = `result-grade ${grade.css}`;
+  document.getElementById('resultMsg').textContent = grade.msg;
+  document.getElementById('resultBox').classList.add('visible');
+
+  generateReport(wrongTopics);
+
+  document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+/* ══════════════════════════════════════
+   تقرير الأداء
+══════════════════════════════════════ */
+function generateReport(wrongTopics) {
+  const errorCount = {}, totalCount = {};
+
+  questions.forEach(q => {
+    totalCount[q.topic] = (totalCount[q.topic] || 0) + 1;
+  });
+  wrongTopics.forEach(t => {
+    errorCount[t] = (errorCount[t] || 0) + 1;
+  });
+
+  const needsReview = Object.keys(errorCount).sort((a, b) => errorCount[b] - errorCount[a]);
+  const mastered    = Object.keys(totalCount).filter(t => !errorCount[t]);
+
+  let html = `<div class="report-title">📊 تقرير الأداء التفصيلي</div>`;
+
+  if (needsReview.length === 0) {
+    html += `<div style="text-align:center;padding:16px;font-size:15px;font-weight:700;color:#1a6b3c;">🌟 أحسنت! لم تُخطئ في أي درس. أداء مثالي!</div>`;
+  } else {
+    html += `<p class="report-subtitle bad">📖 دروس تحتاج إلى مراجعة:</p><div class="report-list">`;
+    needsReview.forEach(topic => {
+      const w = errorCount[topic], tot = totalCount[topic];
+      html += `<div class="report-item needs-review">
+        <span class="report-item-name">❌ ${topicNames[topic]}</span>
+        <span class="report-item-badge badge-wrong">${w} خطأ من ${tot}</span>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  if (mastered.length > 0) {
+    html += `<p class="report-subtitle good">✅ دروس أتقنتها:</p><div class="report-list">`;
+    mastered.forEach(topic => {
+      const tot = totalCount[topic];
+      html += `<div class="report-item mastered">
+        <span class="report-item-name">✅ ${topicNames[topic]}</span>
+        <span class="report-item-badge badge-right">كل ${tot} صح</span>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  if (needsReview.length > 0) {
+    const topicList = needsReview.map(t => topicNames[t]).join(' — ');
+    html += `<div class="report-tip">💡 <strong>نصيحة:</strong> ركّز في مراجعتك على: ${topicList}. راجع الأمثلة الحلَّة في الكتاب المدرسي وحاول حل تمارين إضافية.</div>`;
+  }
+
+  const reportBox = document.getElementById('reportBox');
+  reportBox.innerHTML = html;
+  reportBox.classList.add('visible');
+}
+
+/* ══════════════════════════════════════
+   تقييم النتيجة
+══════════════════════════════════════ */
+function getGrade(pct) {
+  if (pct >= 90) return {label:'⭐ ممتاز',css:'grade-excellent',trophy:'🏆',msg:'أداء رائع! أنت نجم الرياضيات، استمر في التميز والإبداع! 🌟'};
+  if (pct >= 80) return {label:'✨ جيد جداً',css:'grade-verygood',trophy:'🥇',msg:'عمل جيد جداً! أنت قريب من القمة، راجع الأسئلة الخاطئة لتصل إليها! 💪'};
+  if (pct >= 70) return {label:'👍 جيد',css:'grade-good',trophy:'🥈',msg:'أداء جيد! مع مزيد من المراجعة ستتحسن نتيجتك بشكل كبير. 📚'};
+  if (pct >= 60) return {label:'📝 مقبول',css:'grade-pass',trophy:'🥉',msg:'راجع الدروس التي أخطأت فيها، وستتحسن في المرة القادمة! 💡'};
+  return {label:'📖 يحتاج مراجعة',css:'grade-fail',trophy:'💙',msg:'لا تيأس! المراجعة الجيدة والممارسة المستمرة ستجعلك أفضل. أنت قادر! 🌱'};
+}
+
+/* ══════════════════════════════════════
+   إعادة الاختبار
+══════════════════════════════════════ */
+function resetTest() {
+  submitted = false;
+  document.getElementById('studentName').value = '';
+  document.getElementById('resultBox').classList.remove('visible');
+  const reportBox = document.getElementById('reportBox');
+  reportBox.classList.remove('visible');
+  reportBox.innerHTML = '';
+
+  questions.forEach((_, i) => {
+    const card = document.getElementById(`card-${i}`);
+    card.classList.remove('answered','correct-card','wrong-card');
+    document.querySelectorAll(`input[name="q${i}"]`).forEach((r, oi) => {
+      r.checked  = false;
+      r.disabled = false;
+      document.getElementById(`opt-${i}-${oi}`).classList.remove('disabled','selected-correct','selected-wrong','show-correct');
+    });
+    document.getElementById(`reveal-${i}`).classList.remove('visible');
+  });
+
+  hideAlert();
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ══════════════════════════════════════
+   التنبيه
+══════════════════════════════════════ */
+function showAlert() {
+  const a = document.getElementById('alertBox');
+  a.classList.remove('visible');
+  void a.offsetWidth;
+  a.classList.add('visible');
+  a.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+function hideAlert() {
+  document.getElementById('alertBox').classList.remove('visible');
+}
+
+updateProgress();
+</script>
 </body>
 </html>
